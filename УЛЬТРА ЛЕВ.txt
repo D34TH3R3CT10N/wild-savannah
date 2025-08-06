@@ -1,0 +1,3743 @@
+local u1 = game.Players.LocalPlayer
+local u2 = u1.Character
+local u3 = u2:WaitForChild("Humanoid2")
+local u4 = game.Players.LocalPlayer:GetMouse()
+workspace:WaitForChild("Terrain")
+local u5 = game.Workspace.CurrentCamera
+local v6 = game:GetService("RunService")
+game:GetService("UserInputService")
+local v7 = u3:WaitForChild("Animations")
+local v8 = u3:WaitForChild("Stats")
+game:GetService("ReplicatedStorage")
+u4.TargetFilter = workspace
+u5.CameraType = "Custom"
+u5.CameraSubject = u3
+u1.PlayerScripts.ControlScript.Disabled = true
+local u9 = nil
+local u10 = false
+local u11 = nil
+local u12 = false
+local u13 = v8.Bools.CanCrouch.Value
+local u14 = false
+local u15 = false
+local u16 = false
+local u17 = false
+local u18 = true
+local u19 = true
+local u20 = false
+local u21 = false
+local u22 = false
+local u23 = false
+local u24 = false
+local u25 = false
+local u26 = false
+local u27 = false
+local u28 = false
+local u29 = false
+local u30 = false
+local u31 = false
+local u32 = false
+local u33 = false
+local u34 = false
+local u35 = true
+local u36 = false
+local u37 = true
+local u38 = false
+local u39 = true
+local u40 = false
+local u41 = false
+local u42 = "Neutral"
+CrouchWalkSlowSpeed = v8.Speeds.CrouchWalkSlowSpeed.Value
+CrouchWalkSpeed = v8.Speeds.CrouchWalkSpeed.Value
+CrouchTrotSpeed = v8.Speeds.CrouchTrotSpeed.Value
+WalkSpeed = v8.Speeds.WalkSpeed.Value
+TrotSpeed = v8.Speeds.TrotSpeed.Value
+JogSpeed = v8.Speeds.JogSpeed.Value
+SprintSpeed = v8.Speeds.SprintSpeed.Value
+TopSprintSpeed = SprintSpeed
+TopJogSpeed = JogSpeed
+MaxHunger = 90
+Hunger = MaxHunger
+HungerRegen = 1.5
+MaxThirst = 100
+Thirst = MaxThirst
+ThirstRegen = 1.6666666666667
+DrinkHeight = v8.Misc.DrinkHeight.Value
+MaxStam = v8.Max.MaxStam.Value
+Stam = MaxStam
+StamRegen = MaxStam / 120
+StamRegenResting = MaxStam / 60
+StamLoss = 0
+StamLossSprinting = 0
+Multiplier = -(TopJogSpeed - TopSprintSpeed) / (MaxStam - MaxStam / 10)
+print(Multiplier)
+MaxOx = v8.Max.MaxOx.Value
+Ox = MaxOx
+MaxTime = 5
+Time = 5
+TurnRadiusIdle = v8.TurnRadii.TurnRadiusIdle.Value
+TurnRadiusCrouch = v8.TurnRadii.TurnRadiusCrouch.Value
+TurnRadiusWalk = v8.TurnRadii.TurnRadiusWalk.Value
+TurnRadiusTrot = v8.TurnRadii.TurnRadiusTrot.Value
+TurnRadiusSprint = v8.TurnRadii.TurnRadiusSprint.Value
+TurnRadiusDodge = v8.TurnRadii.TurnRadiusDodge.Value
+WalkAnimSpeed = v8.AnimSpeeds.WalkAnimSpeed.Value
+TrotAnimSpeed = v8.AnimSpeeds.TrotAnimSpeed.Value
+JogAnimSpeed = v8.AnimSpeeds.JogAnimSpeed.Value
+SprintAnimSpeed = v8.AnimSpeeds.SprintAnimSpeed.Value
+StotAnimSpeed = v8.AnimSpeeds.StotAnimSpeed.Value
+u3.CameraOffset = v8.Misc.CameraOffset.Value
+totalspeed = nil
+u1.CameraMinZoomDistance = 4
+u1.CameraMaxZoomDistance = 9
+u3.WalkSpeed = WalkSpeed
+WalkRot = v8.Cframes.WalkRot.Value
+TrotRot = v8.Cframes.TrotRot.Value
+JogRot = v8.Cframes.JogRot.Value
+JogPos = v8.Cframes.JogPos.Value
+SprintRot = v8.Cframes.SprintRot.Value
+SprintPos = v8.Cframes.SprintPos.Value
+TailRot = v8.Cframes.TailRot.Value
+hrp = u2:WaitForChild("HumanoidRootPart")
+MaxValue = hrp:GetMass() * workspace.Gravity * 10
+bv = hrp:WaitForChild("BodyVelocity")
+bav = hrp:WaitForChild("BodyAngularVelocity")
+IdleAnim = v7.Idles.Idle
+Idle = u3:LoadAnimation(IdleAnim)
+IdleWalkLeftAnim = v7.Locomotion.IdleWalkLeft
+IdleWalkLeft = u3:LoadAnimation(IdleWalkLeftAnim)
+IdleWalkRightAnim = v7.Locomotion.IdleWalkRight
+IdleWalkRight = u3:LoadAnimation(IdleWalkRightAnim)
+CrouchIdleAnim = v7.Idles.CrouchIdle
+CrouchIdle = u3:LoadAnimation(CrouchIdleAnim)
+CrouchLayAnim = v7.Idles.CrouchLay
+CrouchLay = u3:LoadAnimation(CrouchLayAnim)
+AlertIdleAnim = v7.Idles.AlertIdle
+AlertIdle = u3:LoadAnimation(AlertIdleAnim)
+AgonisticIdleAnim = v7.Idles.AgonisticIdle
+AgonisticIdle = u3:LoadAnimation(AgonisticIdleAnim)
+WalkAnim = v7.Locomotion.Walk
+Walk = u3:LoadAnimation(WalkAnim)
+CrouchWalkAnim = v7.Locomotion.CrouchWalk
+CrouchWalk = u3:LoadAnimation(CrouchWalkAnim)
+CrouchTrotAnim = v7.Locomotion.CrouchTrot
+CrouchTrot = u3:LoadAnimation(CrouchTrotAnim)
+TrotAnim = v7.Locomotion.Trot
+Trot = u3:LoadAnimation(TrotAnim)
+JogAnim = v7.Locomotion.Jog
+Jog = u3:LoadAnimation(JogAnim)
+RunAnim = v7.Locomotion.Run
+Run = u3:LoadAnimation(RunAnim)
+RunStartAnim = v7.Locomotion.RunStart
+RunStart = u3:LoadAnimation(RunStartAnim)
+StotAnim = v7.Locomotion.Stot
+Stot = u3:LoadAnimation(StotAnim)
+FightStanceBeginAnim = v7.Fighting.FightStanceBegin
+FightStanceBegin = u3:LoadAnimation(FightStanceBeginAnim)
+FightStanceEndAnim = v7.Fighting.FightStanceEnd
+FightStanceEnd = u3:LoadAnimation(FightStanceEndAnim)
+FightStanceAnim = v7.Fighting.FightStance
+FightStance = u3:LoadAnimation(FightStanceAnim)
+StrafeLeftAnim = v7.Fighting.StrafeLeft
+StrafeLeft = u3:LoadAnimation(StrafeLeftAnim)
+StrafeRightAnim = v7.Fighting.StrafeRight
+StrafeRight = u3:LoadAnimation(StrafeRightAnim)
+StrafeForwardAnim = v7.Fighting.StrafeForward
+StrafeForward = u3:LoadAnimation(StrafeForwardAnim)
+StrafeBackwardAnim = v7.Fighting.StrafeBackward
+StrafeBackward = u3:LoadAnimation(StrafeBackwardAnim)
+LayAnim = v7.Idles.Lay
+Lay = u3:LoadAnimation(LayAnim)
+LayingAnim = v7.Idles.Laying
+Laying = u3:LoadAnimation(LayingAnim)
+GetUpAnim = v7.Idles.GetUp
+GetUp = u3:LoadAnimation(GetUpAnim)
+SitAnim = v7.Idles.Sit
+Sit = u3:LoadAnimation(SitAnim)
+SittingAnim = v7.Idles.Sitting
+Sitting = u3:LoadAnimation(SittingAnim)
+SitUpAnim = v7.Idles.SitUp
+SitUp = u3:LoadAnimation(SitUpAnim)
+EatAnim = v7.Idles.Eat
+Eat = u3:LoadAnimation(EatAnim)
+EatingAnim = v7.Idles.Eating
+Eating = u3:LoadAnimation(EatingAnim)
+EatingEndAnim = v7.Idles.EatingEnd
+EatingEnd = u3:LoadAnimation(EatingEndAnim)
+DrinkAnim = v7.Idles.Drink
+Drink = u3:LoadAnimation(DrinkAnim)
+DrinkingAnim = v7.Idles.Drinking
+Drinking = u3:LoadAnimation(DrinkingAnim)
+DrinkingEndAnim = v7.Idles.DrinkingEnd
+DrinkingEnd = u3:LoadAnimation(DrinkingEndAnim)
+TailFlickAnim = v7.Misc.TailFlick
+TailFlick = u3:LoadAnimation(TailFlickAnim)
+TailFlick2Anim = v7.Misc.TailFlick2
+TailFlick2 = u3:LoadAnimation(TailFlick2Anim)
+EarFlickRightAnim = v7.Misc.EarFlickRight
+EarFlickRight = u3:LoadAnimation(EarFlickRightAnim)
+EarFlickLeftAnim = v7.Misc.EarFlickLeft
+EarFlickLeft = u3:LoadAnimation(EarFlickLeftAnim)
+ShakeHeadAnim = v7.Misc.ShakeHead
+ShakeHead = u3:LoadAnimation(ShakeHeadAnim)
+AgonisticExpressionAnim = v7.Misc.AgonisticExpression
+AgonisticExpression = u3:LoadAnimation(AgonisticExpressionAnim)
+WarningExpressionAnim = v7.Misc.WarningExpression
+WarningExpression = u3:LoadAnimation(WarningExpressionAnim)
+GrabMedAnim = v7.Pounces.GrabMed
+GrabMed = u3:LoadAnimation(GrabMedAnim)
+GrabLowAnim = v7.Pounces.GrabLow
+GrabLow = u3:LoadAnimation(GrabLowAnim)
+GrabLeapMedAnim = v7.Pounces.GrabLeapMed
+GrabLeapMed = u3:LoadAnimation(GrabLeapMedAnim)
+GrabLeapLowAnim = v7.Pounces.GrabLeapLow
+GrabLeapLow = u3:LoadAnimation(GrabLeapLowAnim)
+DodgeLeftAnim = v7.Dodges.DodgeLeft
+DodgeLeft = u3:LoadAnimation(DodgeLeftAnim)
+DodgeRightAnim = v7.Dodges.DodgeRight
+DodgeRight = u3:LoadAnimation(DodgeRightAnim)
+DodgeBackwardAnim = v7.Dodges.DodgeBackward
+DodgeBackward = u3:LoadAnimation(DodgeBackwardAnim)
+QuickTurnLeftAnim = v7.Dodges.QuickTurnLeft
+QuickTurnLeft = u3:LoadAnimation(QuickTurnLeftAnim)
+QuickTurnRightAnim = v7.Dodges.QuickTurnRight
+QuickTurnRight = u3:LoadAnimation(QuickTurnRightAnim)
+CallSequence1Anim = v7.Calls.CallSequence1
+CallSequence1 = u3:LoadAnimation(CallSequence1Anim)
+CallSequence2Anim = v7.Calls.CallSequence2
+CallSequence2 = u3:LoadAnimation(CallSequence2Anim)
+CallSequence3Anim = v7.Calls.CallSequence3
+CallSequence3 = u3:LoadAnimation(CallSequence3Anim)
+CallSequence4Anim = v7.Calls.CallSequence4
+CallSequence4 = u3:LoadAnimation(CallSequence4Anim)
+PrimaryAnim = v7.Attacks.Primary
+Primary = u3:LoadAnimation(PrimaryAnim)
+SecondaryAnim = v7.Attacks.Secondary
+Secondary = u3:LoadAnimation(SecondaryAnim)
+SecondaryAnim = v7.Attacks.Secondary
+Secondary = u3:LoadAnimation(SecondaryAnim)
+GrabGiraffeRearAnim = Instance.new("Animation")
+GrabGiraffeRearAnim.AnimationId = "rbxassetid://7302367343"
+GrabGiraffeRearAnim.Name = "GrabGiraffeRear"
+GrabGiraffeRear = u3:LoadAnimation(GrabGiraffeRearAnim)
+GrabGiraffeLimbAnim = Instance.new("Animation")
+GrabGiraffeLimbAnim.AnimationId = "rbxassetid://7307645540"
+GrabGiraffeLimbAnim.Name = "GrabGiraffeRear"
+GrabGiraffeLimb = u3:LoadAnimation(GrabGiraffeLimbAnim)
+GrabGiraffeNeckAnim = Instance.new("Animation")
+GrabGiraffeNeckAnim.AnimationId = "rbxassetid://7308995938"
+GrabGiraffeNeckAnim.Name = "GrabGiraffeNeck"
+GrabGiraffeNeck = u3:LoadAnimation(GrabGiraffeNeckAnim)
+GrabBuffRumpAnim = Instance.new("Animation")
+GrabBuffRumpAnim.AnimationId = "rbxassetid://7316552712"
+GrabBuffRumpAnim.Name = "GrabBuffRump"
+GrabBuffRump = u3:LoadAnimation(GrabBuffRumpAnim)
+GrabBuffBackAnim = Instance.new("Animation")
+GrabBuffBackAnim.AnimationId = "rbxassetid://7316615740"
+GrabBuffBackAnim.Name = "GrabBuffBack"
+GrabBuffBack = u3:LoadAnimation(GrabBuffBackAnim)
+GrabBuffSideAnim = Instance.new("Animation")
+GrabBuffSideAnim.AnimationId = "rbxassetid://7316668245"
+GrabBuffSideAnim.Name = "GrabBuffSide"
+GrabBuffSide = u3:LoadAnimation(GrabBuffSideAnim)
+GrabBuffNeckAnim = Instance.new("Animation")
+GrabBuffNeckAnim.AnimationId = "rbxassetid://7316847008"
+GrabBuffNeckAnim.Name = "GrabBuffNeck"
+GrabBuffNeck = u3:LoadAnimation(GrabBuffNeckAnim)
+if u1.PlayerGui:FindFirstChild("GameGui") == nil then
+    game.Workspace.GameGui:Clone().Parent = u1:WaitForChild("PlayerGui")
+end
+u1.PlayerGui:FindFirstChild("GameGui").Welcome.Visible = false
+u1.PlayerGui:FindFirstChild("GameGui").Choose.Visible = false
+u1.PlayerGui:FindFirstChild("GameGui").Stats.Visible = true
+u1.PlayerGui:FindFirstChild("GameGui").GroupStats.Visible = true
+u1.PlayerGui:FindFirstChild("GameGui").Compass.Visible = true
+local u43 = u1.PlayerGui:WaitForChild("GameGui")
+local u44 = game:GetService("UserInputService")
+u44.MouseIconEnabled = false
+for _, v45 in pairs(workspace:GetChildren()) do
+    if v45:FindFirstChild("Humanoid2") ~= nil and (v45:FindFirstChild("Control") ~= nil and v45:FindFirstChild("HumanoidRootPart") ~= nil) then
+        v45.Humanoid2.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+    end
+end
+local v46 = { "Lion", "Leopard", "Cheetah" }
+for _, v47 in pairs(workspace:GetChildren()) do
+    if v47:FindFirstChildOfClass("Humanoid") and table.find(v46, v47.Humanoid2:GetAttribute("Species")) then
+        for _, v48 in pairs(v47:GetDescendants()) do
+            if (v48:IsA("MeshPart") or (v48:IsA("UnionOperation") or (v48:IsA("BasePart") or (v48:IsA("Decal") or v48:IsA("Texture"))))) and v48:FindFirstChild("StayInvisible") == nil then
+                v48.Transparency = 0
+            end
+        end
+    end
+end
+u4.KeyDown:connect(function(p49) --[[Anonymous function at line 491]]
+    --[[
+    Upvalues:
+        [1] = u10
+        [2] = u44
+        [3] = u16
+        [4] = u14
+        [5] = u2
+        [6] = u40
+        [7] = u17
+        [8] = u34
+        [9] = u41
+        [10] = u19
+        [11] = u4
+    --]]
+    string.lower(p49)
+    if Stam > 3 and (u10 == false and (u44:IsKeyDown(Enum.KeyCode.LeftShift) or u44:IsKeyDown(Enum.KeyCode.RightShift))) then
+        u16 = true
+        u14 = false
+        game.ReplicatedStorage.RemoteEvent13:FireServer(false)
+        ShakeHead:Stop()
+        if u2.Jaw.Call.Playing == true then
+            u40 = false
+            u2.Jaw.Call:Stop()
+            CallSequence1:Stop()
+            CallSequence2:Stop()
+            CallSequence3:Stop()
+            CallSequence4:Stop()
+        end
+        if u44:IsKeyDown(Enum.KeyCode.W) and u17 == true then
+            if RunStart.IsPlaying == false and bv.Velocity.magnitude < TrotSpeed + 3 then
+                RunStart:Play(0.2, 1, 1.1)
+            end
+            if u34 == true or u41 == true then
+                Stam = Stam - MaxStam / 20
+                if Stam <= 0 then
+                    Stam = 0
+                end
+                hrp.Anchored = false
+                if Sit.IsPlaying == true then
+                    Sit:Stop(0.4)
+                end
+                if Sitting.IsPlaying == true then
+                    Sitting:Stop(0.4)
+                end
+                if SitUp.IsPlaying == true then
+                    SitUp:Stop(0.4)
+                end
+                if Lay.IsPlaying == true then
+                    Lay:Stop(0.4)
+                end
+                if Laying.IsPlaying == true then
+                    Laying:Stop(0.4)
+                end
+                if GetUp.IsPlaying == true then
+                    GetUp:Stop(0.4)
+                end
+                if Eat.IsPlaying == true then
+                    Eat:Stop(0.4)
+                end
+                if Eating.IsPlaying == true then
+                    Eating:Stop(0.4)
+                end
+                if EatingEnd.IsPlaying == true then
+                    EatingEnd:Stop(0.4)
+                end
+                if Drink.IsPlaying == true then
+                    Drink:Stop(0.4)
+                end
+                if Drinking.IsPlaying == true then
+                    Drinking:Stop(0.4)
+                end
+                if DrinkingEnd.IsPlaying == true then
+                    DrinkingEnd:Stop(0.4)
+                end
+                u19 = true
+                u41 = false
+                u34 = false
+            end
+        end
+        local v50 = u4.KeyUp:connect(function(_) --[[Anonymous function at line 558]]
+            --[[
+            Upvalues:
+                [1] = u44
+                [2] = u16
+            --]]
+            if not (u44:IsKeyDown(Enum.KeyCode.LeftShift) or u44:IsKeyDown(Enum.KeyCode.RightShift)) then
+                u16 = false
+                if RunStart.IsPlaying == true then
+                    RunStart:Stop(0.2)
+                end
+            end
+        end)
+        repeat
+            wait()
+        until u16 == false
+        v50:disconnect()
+    end
+end)
+u4.KeyDown:connect(function(p51) --[[Anonymous function at line 576]]
+    --[[
+    Upvalues:
+        [1] = u29
+        [2] = u30
+        [3] = u4
+    --]]
+    local v52 = string.lower(p51)
+    if v52 == "w" or string.byte(v52) == 17 then
+        u29 = false
+        u30 = true
+        local v54 = u4.KeyUp:connect(function(p53) --[[Anonymous function at line 589]]
+            --[[
+            Upvalues:
+                [1] = u30
+            --]]
+            if p53 == "w" or string.byte(p53) == 17 then
+                u30 = false
+            end
+        end)
+        repeat
+            wait()
+        until u30 == false
+        v54:disconnect()
+    end
+end)
+u4.KeyDown:connect(function(p55) --[[Anonymous function at line 603]]
+    --[[
+    Upvalues:
+        [1] = u30
+        [2] = u29
+        [3] = u4
+    --]]
+    local v56 = string.lower(p55)
+    if v56 == "s" or string.byte(v56) == 18 then
+        u30 = false
+        u29 = true
+        local v58 = u4.KeyUp:connect(function(p57) --[[Anonymous function at line 616]]
+            --[[
+            Upvalues:
+                [1] = u29
+            --]]
+            if p57 == "s" or string.byte(p57) == 18 then
+                u29 = false
+            end
+        end)
+        repeat
+            wait()
+        until u29 == false
+        v58:disconnect()
+    end
+end)
+u4.KeyDown:connect(function(p59) --[[Anonymous function at line 630]]
+    --[[
+    Upvalues:
+        [1] = u31
+        [2] = u32
+        [3] = u4
+    --]]
+    local v60 = string.lower(p59)
+    if v60 == "a" or string.byte(v60) == 20 then
+        u31 = false
+        u32 = true
+        local v62 = u4.KeyUp:connect(function(p61) --[[Anonymous function at line 643]]
+            --[[
+            Upvalues:
+                [1] = u32
+            --]]
+            if p61 == "a" or string.byte(p61) == 20 then
+                u32 = false
+            end
+        end)
+        repeat
+            wait()
+        until u32 == false
+        v62:disconnect()
+    end
+end)
+u4.KeyDown:connect(function(p63) --[[Anonymous function at line 657]]
+    --[[
+    Upvalues:
+        [1] = u32
+        [2] = u31
+        [3] = u4
+    --]]
+    local v64 = string.lower(p63)
+    if v64 == "d" or string.byte(v64) == 19 then
+        u32 = false
+        u31 = true
+        local v66 = u4.KeyUp:connect(function(p65) --[[Anonymous function at line 670]]
+            --[[
+            Upvalues:
+                [1] = u31
+            --]]
+            if p65 == "d" or string.byte(p65) == 19 then
+                u31 = false
+            end
+        end)
+        repeat
+            wait()
+        until u31 == false
+        v66:disconnect()
+    end
+end)
+function KeyD(p67)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u22
+        [3] = u43
+    --]]
+    p67:lower()
+    if u44:IsKeyDown(Enum.KeyCode.H) then
+        if u22 == false then
+            u22 = true
+            u43.Stats.Visible = false
+            u43.Compass.Visible = false
+            u43.GroupStats.Visible = false
+            if u43:FindFirstChild("ScentInfoFrame") ~= nil then
+                u43.ScentInfoFrame.Visible = false
+                return
+            end
+        elseif u22 == true then
+            u22 = false
+            u43.Stats.Visible = true
+            u43.Compass.Visible = true
+            u43.GroupStats.Visible = true
+            if u43:FindFirstChild("ScentInfoFrame") ~= nil then
+                u43.ScentInfoFrame.Visible = true
+            end
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+function KeyD(p68)
+    --[[
+    Upvalues:
+        [1] = u2
+        [2] = u44
+        [3] = u10
+        [4] = u23
+        [5] = u14
+        [6] = u28
+        [7] = u41
+        [8] = u19
+        [9] = u34
+    --]]
+    if EatingEnd.IsPlaying == false and (Eating.IsPlaying == false and (Eat.IsPlaying == false and (DrinkingEnd.IsPlaying == false and (Drinking.IsPlaying == false and (Drink.IsPlaying == false and bv.Velocity.Magnitude < 0.01))))) then
+        p68:lower()
+        local v69 = {
+            u2,
+            workspace.AllFlies,
+            workspace.AllBushes,
+            workspace.AllGrasses,
+            workspace.AllTrees
+        }
+        local v70 = Ray.new(hrp.CFrame.p, hrp.CFrame.lookVector * 5 - Vector3.new(0, 10, 0))
+        local v71, _, _, _ = game.Workspace:FindPartOnRayWithIgnoreList(v70, v69)
+        local v72 = Ray.new(hrp.CFrame.p, hrp.CFrame.lookVector * -5 - Vector3.new(0, 10, 0))
+        local v73, _, _, _ = game.Workspace:FindPartOnRayWithIgnoreList(v72, v69)
+        if v71 and (v71.Parent:FindFirstChildOfClass("Humanoid") == nil and (v73 and (v73.Parent:FindFirstChildOfClass("Humanoid") == nil and (u44:IsKeyDown(Enum.KeyCode.R) and (u10 == false and (u23 == false and (u14 == false and (bv.Velocity == Vector3.new(0, 0, 0) and u28 == false)))))))) then
+            if Sit.IsPlaying == false and (Sitting.IsPlaying == false and (SitUp.IsPlaying == false and (CrouchWalk.IsPlaying == false and (Lay.IsPlaying == false and (Laying.IsPlaying == false and (GetUp.IsPlaying == false and u28 == false)))))) then
+                u41 = true
+                u19 = false
+                Sit:Play(0.1, 1, 0.8)
+            end
+            if Lay.IsPlaying == false and (Laying.IsPlaying == false and (GetUp.IsPlaying == false and (CrouchWalk.IsPlaying == false and (Sit.IsPlaying == false and (Sitting.IsPlaying == true and (SitUp.IsPlaying == false and u28 == false)))))) then
+                hrp.Anchored = true
+                u41 = false
+                u34 = true
+                Lay:Play(0.1, 1, 0.8)
+                Sitting:Stop(0.3)
+            end
+        end
+        if u44:IsKeyDown(Enum.KeyCode.R) and (u10 == false and (u14 == true and (u23 == false and bv.Velocity == Vector3.new(0, 0, 0)))) and (CrouchLay.IsPlaying == false and (CrouchLay.WeightCurrent == 0 and CrouchWalk.IsPlaying == true) or CrouchLay.IsPlaying == false and (CrouchLay.WeightCurrent == 0 and CrouchIdle.IsPlaying == true)) then
+            CrouchIdle:Stop(0.35)
+            CrouchLay:Play(0.35, 1, 1)
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+function KeyD(p74)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u23
+        [3] = u28
+        [4] = u14
+        [5] = u19
+        [6] = u18
+        [7] = u41
+        [8] = u34
+    --]]
+    p74:lower()
+    if EatingEnd.IsPlaying == false and (Eating.IsPlaying == false and (Eat.IsPlaying == false and (DrinkingEnd.IsPlaying == false and (Drinking.IsPlaying == false and (Drink.IsPlaying == false and (u44:IsKeyDown(Enum.KeyCode.T) and (u23 == false and (bv.Velocity == Vector3.new(0, 0, 0) and (Eating.IsPlaying == false and u28 == false))))))))) then
+        if Sitting.IsPlaying == true then
+            if u14 == false then
+                SitUp:Play(0.1, 1, 0.8)
+                Sitting:Stop(0.2)
+                SitUp.Stopped:connect(function() --[[Anonymous function at line 779]]
+                    --[[
+                    Upvalues:
+                        [1] = u19
+                        [2] = u18
+                        [3] = u41
+                    --]]
+                    u19 = true
+                    u18 = true
+                    u41 = false
+                end)
+            elseif u14 == true then
+                u19 = true
+                u41 = false
+                Sitting:Stop(0.35)
+                CrouchLay:Play(0.35)
+            end
+        end
+        if Laying.IsPlaying == true then
+            if u14 == false then
+                GetUp:Play(0.1, 1, 0.8)
+                Laying:Stop(0.2)
+                GetUp.Stopped:connect(function() --[[Anonymous function at line 795]]
+                    --[[
+                    Upvalues:
+                        [1] = u28
+                        [2] = u34
+                        [3] = u41
+                    --]]
+                    if u28 == false then
+                        u34 = false
+                        u41 = true
+                        hrp.Anchored = false
+                        Sitting:Play()
+                    end
+                end)
+                return
+            end
+            if u14 == true then
+                u19 = true
+                u34 = false
+                Laying:Stop(0.35)
+                CrouchLay:Play(0.35)
+                u18 = true
+            end
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+local u75 = true
+game.ReplicatedStorage.RemoteEvent4.OnClientEvent:connect(function() --[[Anonymous function at line 823]]
+    --[[
+    Upvalues:
+        [1] = u75
+    --]]
+    u75 = false
+    wait(2)
+    u75 = true
+end)
+function KeyD(p76)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u75
+    --]]
+    p76:lower()
+    if u44:IsKeyDown(Enum.KeyCode.B) and u75 == true then
+        game.ReplicatedStorage.RemoteEvent4:FireServer()
+    end
+end
+u4.KeyDown:connect(KeyD)
+function KeyD(p77)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u20
+    --]]
+    p77:lower()
+    if u44:IsKeyDown(Enum.KeyCode.N) then
+        if u20 == false then
+            u20 = true
+            return
+        end
+        if u20 == true then
+            u20 = false
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+function KeyD(p78)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u10
+        [3] = u15
+        [4] = u16
+    --]]
+    p78:lower()
+    if u44:IsKeyDown(Enum.KeyCode.Z) and u10 == false then
+        if u15 == false and u16 == false then
+            u15 = true
+            game.ReplicatedStorage.RemoteEvent13:FireServer(false)
+            return
+        end
+        if u15 == true and u16 == false then
+            u15 = false
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+function KeyD(p79)
+    --[[
+    Upvalues:
+        [1] = u10
+        [2] = u44
+        [3] = u13
+        [4] = u14
+        [5] = u16
+        [6] = u19
+        [7] = u34
+        [8] = u41
+        [9] = u18
+    --]]
+    p79:lower()
+    if EatingEnd.IsPlaying == false and (u10 == false and (Eating.IsPlaying == false and (Eat.IsPlaying == false and (DrinkingEnd.IsPlaying == false and (Drinking.IsPlaying == false and (Drink.IsPlaying == false and (u44:IsKeyDown(Enum.KeyCode.LeftControl) or u44:IsKeyDown(Enum.KeyCode.RightControl)))))))) and u13 == true then
+        if u14 == false and u16 == false then
+            u14 = true
+            if Laying.IsPlaying == false and Sitting.IsPlaying == false then
+                if Idle.IsPlaying == true and CrouchIdle.IsPlaying == false then
+                    Idle:Stop(1)
+                    CrouchIdle:Play(1)
+                    return
+                end
+            elseif Laying.IsPlaying == true or Sitting.IsPlaying == true then
+                hrp.Anchored = false
+                u19 = true
+                u34 = false
+                u41 = false
+                u18 = true
+                CrouchIdle:Stop(0.5)
+                CrouchLay:Play(0.5)
+                Laying:Stop(0.5)
+                Sitting:Stop(0.5)
+                CrouchWalk:Play(0.5)
+                return
+            end
+        elseif u14 == true and u16 == false then
+            u14 = false
+            game.ReplicatedStorage.RemoteEvent13:FireServer(false)
+            if CrouchLay.IsPlaying == false then
+                if Idle.IsPlaying == false and CrouchIdle.IsPlaying == true then
+                    Idle:Play(1)
+                    CrouchIdle:Stop(1)
+                    CrouchWalk:Stop(1)
+                    return
+                end
+                if Idle.IsPlaying == false and (CrouchWalk.IsPlaying == true and CrouchWalk.Speed == 0) then
+                    Idle:Play(1)
+                    CrouchIdle:Stop(1)
+                    CrouchWalk:Stop(1)
+                    return
+                end
+            elseif CrouchLay.IsPlaying == true then
+                hrp.Anchored = true
+                u19 = false
+                u34 = true
+                u18 = false
+                CrouchWalk:Stop(0.5)
+                CrouchLay:Stop(0.5)
+                CrouchIdle:Stop(0.5)
+                Laying:Play(0.5)
+            end
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+function KeyD(p80)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u17
+    --]]
+    p80:lower()
+    if u44:IsKeyDown(Enum.KeyCode.X) then
+        if u17 == false then
+            u17 = true
+            return
+        end
+        if u17 == true then
+            u17 = false
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+local u81 = {
+    "Fish",
+    "Hare",
+    "MinnowS",
+    "MinnowL",
+    "CatfishXS",
+    "CatfishS",
+    "CatfishM",
+    "CatfishL"
+}
+function KeyD(p82)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u2
+        [3] = u81
+    --]]
+    p82:lower()
+    if u44:IsKeyDown(Enum.KeyCode.G) then
+        if u2.SecHead.AlignPosition2.Attachment1 then
+            if u2.SecHead.AlignPosition2.Attachment1 then
+                game:GetService("ReplicatedStorage").CorpseWeld:FireServer(false)
+            end
+        else
+            local v83 = 4
+            local v84 = nil
+            for _, v85 in pairs(workspace:GetChildren()) do
+                if v85.Name == "Corpse" and (v85:FindFirstChild("Torso") and table.find(u81, v85.Torso:GetAttribute("Species"))) then
+                    local v86 = (v85.Torso.Position - hrp.Position).magnitude
+                    if v86 < v83 then
+                        v84 = v85
+                        v83 = v86
+                    end
+                end
+            end
+            if v84 then
+                game:GetService("ReplicatedStorage").CorpseWeld:FireServer(true, v84.Torso)
+                return
+            end
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+function KeyD(p87)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u40
+        [3] = u42
+    --]]
+    p87:lower()
+    if u44:IsKeyDown(Enum.KeyCode.Three) and u40 == false then
+        if u42 ~= "Warning" then
+            u42 = "Warning"
+            AgonisticExpression:Play(0.3)
+            return
+        end
+        if u42 == "Warning" then
+            u42 = "Neutral"
+            AgonisticExpression:Stop(0.3)
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+function KeyD(p88)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u10
+        [3] = u21
+        [4] = u3
+        [5] = u36
+        [6] = u38
+        [7] = u2
+        [8] = u23
+        [9] = u19
+        [10] = u24
+        [11] = u18
+        [12] = u39
+        [13] = u35
+        [14] = u37
+        [15] = u33
+        [16] = u5
+        [17] = u1
+        [18] = u34
+        [19] = u41
+    --]]
+    p88:lower()
+    if u44:IsKeyDown(Enum.KeyCode.K) and (u10 == false and (u21 == false and (u3:GetAttribute("Pounced") == false and (u36 == false and u38 == false)))) then
+        local v89 = false
+        for _, v90 in pairs(u2:GetDescendants()) do
+            if v90:IsA("ObjectValue") and v90.Name == "Hit" then
+                v89 = true
+            end
+        end
+        if v89 == false then
+            if u23 == false then
+                u23 = true
+                u19 = false
+                Time = MaxTime
+                u24 = false
+                u18 = false
+                u39 = false
+                u35 = false
+                u37 = false
+                u33 = false
+                u5.CameraType = "Scriptable"
+                u1.PlayerGui:FindFirstChild("GameGui").Stats.Respawn.Visible = true
+                u1.PlayerGui:FindFirstChild("GameGui").Stats.Respawn.Text = "Can Respawn In: " .. MaxTime
+                u44.MouseIconEnabled = true
+                u44.MouseBehavior = Enum.MouseBehavior.Default
+                return
+            end
+            if u23 == true then
+                u23 = false
+                if u34 == false and (u41 == false and u3:GetAttribute("Pounced") == false) then
+                    u19 = true
+                    u18 = true
+                    u39 = true
+                    u35 = true
+                    u37 = true
+                end
+                u24 = false
+                u5.CameraType = "Custom"
+                u1.PlayerGui.GameGui.Choose.Visible = false
+                u1.PlayerGui.GameGui.ChooseAge.Visible = false
+                u1.PlayerGui.GameGui.ChooseGender.Visible = false
+                u1.PlayerGui.GameGui.Welcome.Visible = false
+                u1.PlayerGui:FindFirstChild("GameGui").Stats.Respawn.Visible = false
+                u1.PlayerGui:FindFirstChild("GameGui").Stats.Respawn.Text = "Can Respawn In: " .. MaxTime
+                Time = MaxTime
+                u44.MouseIconEnabled = false
+                u44.MouseBehavior = Enum.MouseBehavior.LockCenter
+            end
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+function KeyD(p91)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u10
+        [3] = u2
+        [4] = u23
+        [5] = u40
+        [6] = u36
+        [7] = u38
+        [8] = u14
+        [9] = u37
+        [10] = u41
+        [11] = u34
+        [12] = u19
+        [13] = u18
+        [14] = u39
+        [15] = u33
+        [16] = u35
+        [17] = u11
+    --]]
+    p91:lower()
+    if u44:IsKeyDown(Enum.KeyCode.E) and (u10 == false and (not u2.SecHead.AlignPosition2.Attachment1 and (u23 == false and (u40 == false and (u36 == false and (u38 == false and u14 == false)))))) then
+        local v92 = {
+            u2,
+            workspace.AllFlies,
+            workspace.AllBushes,
+            workspace.AllGrasses,
+            workspace.AllTrees
+        }
+        local v93 = Ray.new(hrp.CFrame.p, hrp.CFrame.lookVector * 10 - Vector3.new(0, 10, 0))
+        local v94, v95, _, _ = game.Workspace:FindPartOnRayWithIgnoreList(v93, v92)
+        local v96 = (hrp.CFrame.p - v95).magnitude
+        if v94 then
+            if v94.Name == "WaterPart" and (u37 == true and (v96 < DrinkHeight and (Thirst < MaxThirst and (bv.Velocity == Vector3.new(0, 0, 0) and (u41 == false and u34 == false))))) then
+                u19 = false
+                u18 = false
+                u39 = false
+                u33 = false
+                u38 = true
+                Drink:Play(0.15)
+            end
+            if v94.Parent and (v94.Parent.Name == "Corpse" and (u35 == true and (Hunger < MaxHunger and (bv.Velocity == Vector3.new(0, 0, 0) and u34 == true)))) then
+                u19 = false
+                u18 = false
+                u39 = false
+                u33 = false
+                u36 = true
+                u11 = v94.Parent
+                Eat:Play(0.15, 1, 1)
+            end
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+function KeyD(p97)
+    if p97:lower() == "e" then
+        if Drinking.IsPlaying == true then
+            Drinking:Stop(0.15)
+        end
+        if Eating.IsPlaying == true then
+            Eating:Stop(0.15)
+        end
+    end
+end
+u4.KeyUp:connect(KeyD)
+function KeyD(p98)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u2
+        [3] = u3
+        [4] = u36
+        [5] = u38
+        [6] = u28
+        [7] = u42
+        [8] = u40
+    --]]
+    p98:lower()
+    if u44:IsKeyDown(Enum.KeyCode.One) and (not u2.SecHead.AlignPosition2.Attachment1 and (u3:GetAttribute("Pounced") == false and (u36 == false and (u38 == false and (u28 == false and (u42 == "Neutral" and (u2.Jaw.Call.Playing == false and u40 == false))))))) then
+        u2.Jaw.Call:Play()
+        u40 = true
+    end
+end
+u4.KeyDown:connect(KeyD)
+u2.Jaw.Call.Played:connect(function() --[[Anonymous function at line 1171]]
+    --[[
+    Upvalues:
+        [1] = u3
+        [2] = u2
+    --]]
+    if u3:GetAttribute("Gender") == "Male" then
+        if u2.Jaw.Call.SoundId == "rbxassetid://4157291937" then
+            CallSequence2:Play()
+            u2.Jaw.Call.TimePosition = 6.25
+        end
+        if u2.Jaw.Call.SoundId == "rbxassetid://4157293294" then
+            CallSequence1:Play()
+            u2.Jaw.Call.TimePosition = 0.25
+        end
+        if u2.Jaw.Call.SoundId == "rbxassetid://3284766072" then
+            CallSequence3:Play()
+            u2.Jaw.Call.TimePosition = 5.7
+        end
+        if u2.Jaw.Call.SoundId == "rbxassetid://4157313794" then
+            CallSequence4:Play()
+            u2.Jaw.Call.TimePosition = 0.25
+            return
+        end
+    elseif u3:GetAttribute("Gender") == "Female" then
+        if u2.Jaw.Call.SoundId == "rbxassetid://11664990033" then
+            CallSequence1:Play()
+            u2.Jaw.Call.TimePosition = 0.21
+        end
+        if u2.Jaw.Call.SoundId == "rbxassetid://4157296351" then
+            CallSequence2:Play()
+            u2.Jaw.Call.TimePosition = 1.96
+        end
+    end
+end)
+u2.Jaw.Call.Ended:connect(function() --[[Anonymous function at line 1207]]
+    --[[
+    Upvalues:
+        [1] = u40
+    --]]
+    u40 = false
+end)
+function KeyD(p99)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u28
+        [3] = u3
+        [4] = u32
+        [5] = u31
+    --]]
+    p99:lower()
+    if u44:IsKeyDown(Enum.KeyCode.Space) and (u28 == false and (u3:GetAttribute("Pounced") == false and (GrabLeapLow.IsPlaying == false and (Stam > 2 and bv.Velocity.Magnitude < TrotSpeed + 2.5)))) then
+        if u32 == true and QuickTurnLeft.WeightCurrent == 0 then
+            QuickTurn("Left")
+            return
+        end
+        if u31 == true and QuickTurnRight.WeightCurrent == 0 then
+            QuickTurn("Right")
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+function KeyD(p100)
+    --[[
+    Upvalues:
+        [1] = u44
+        [2] = u28
+        [3] = u10
+        [4] = u3
+        [5] = u32
+        [6] = u31
+    --]]
+    p100:lower()
+    if u44:IsKeyDown(Enum.KeyCode.Q) and (u28 == false and (u10 == false and (u3:GetAttribute("Pounced") == false and (GrabLeapLow.IsPlaying == false and (Stam > 2 and bv.Velocity.Magnitude < TrotSpeed + 2.5))))) then
+        if u32 == true and DodgeLeft.WeightCurrent == 0 then
+            bv.Velocity = Vector3.new(0, 0, 0)
+            QuickTurn("BackLeft")
+            game.ReplicatedStorage.RemoteEvent8:FireServer("Dodge")
+            return
+        end
+        if u31 == true and DodgeRight.WeightCurrent == 0 then
+            bv.Velocity = Vector3.new(0, 0, 0)
+            QuickTurn("BackRight")
+            game.ReplicatedStorage.RemoteEvent8:FireServer("Dodge")
+            return
+        end
+        if u31 == false and (u32 == false and (DodgeLeft.WeightCurrent == 0 and DodgeRight.WeightCurrent == 0)) then
+            local v101 = { "BackLeft", "BackRight" }
+            local v102 = v101[math.random(1, #v101)]
+            if v102 == "BackLeft" and DodgeLeft.WeightCurrent == 0 then
+                bv.Velocity = Vector3.new(0, 0, 0)
+                QuickTurn(v102)
+                game.ReplicatedStorage.RemoteEvent8:FireServer("Dodge")
+                return
+            end
+            if v102 == "BackRight" and DodgeRight.WeightCurrent == 0 then
+                bv.Velocity = Vector3.new(0, 0, 0)
+                QuickTurn(v102)
+                game.ReplicatedStorage.RemoteEvent8:FireServer("Dodge")
+            end
+        end
+    end
+end
+u4.KeyDown:connect(KeyD)
+function QuickTurn(p103)
+    --[[
+    Upvalues:
+        [1] = u28
+        [2] = u19
+        [3] = u41
+        [4] = u34
+    --]]
+    u28 = true
+    game.ReplicatedStorage.RemoteEvent8:FireServer("QuickTurn")
+    Stam = Stam - MaxStam / 50
+    if Stam < 0 then
+        Stam = 0
+    end
+    if Sit.IsPlaying == true then
+        Sit:Stop(0.2)
+    end
+    if Sitting.IsPlaying == true then
+        Sitting:Stop(0.2)
+    end
+    if SitUp.IsPlaying == true then
+        SitUp:Stop(0.2)
+    end
+    if Lay.IsPlaying == true then
+        Lay:Stop(0.2)
+    end
+    if Laying.IsPlaying == true then
+        Laying:Stop(0.2)
+    end
+    if GetUp.IsPlaying == true then
+        GetUp:Stop(0.2)
+    end
+    hrp.Anchored = false
+    u19 = true
+    u41 = false
+    u34 = false
+    Eat:Stop()
+    Eating:Stop()
+    EatingEnd:Stop()
+    Drink:Stop()
+    Drinking:Stop()
+    DrinkingEnd:Stop()
+    bav.MaxTorque = Vector3.new(0, 0, 0)
+    bav.AngularVelocity = Vector3.new(0, 0, 0)
+    bv.Velocity = Vector3.new(0, 0, 0)
+    if p103 == "Left" then
+        bv.Velocity = Vector3.new(0, 0, 0)
+        local v104 = bav
+        local v105 = MaxValue
+        v104.MaxTorque = Vector3.new(0, v105, 0)
+        QuickTurnLeft:Play()
+        bav.AngularVelocity = hrp.CFrame.upVector * 5.235987755982989
+        QuickTurnLeft.Stopped:connect(function() --[[Anonymous function at line 1319]]
+            bv.Velocity = Vector3.new(0, 0, 0)
+            bav.AngularVelocity = Vector3.new(0, 0, 0)
+        end)
+        return
+    elseif p103 == "Right" then
+        bv.Velocity = Vector3.new(0, 0, 0)
+        local v106 = bav
+        local v107 = MaxValue
+        v106.MaxTorque = Vector3.new(0, v107, 0)
+        QuickTurnRight:Play()
+        bav.AngularVelocity = hrp.CFrame.upVector * -5.235987755982989
+        QuickTurnRight.Stopped:connect(function() --[[Anonymous function at line 1328]]
+            bv.Velocity = Vector3.new(0, 0, 0)
+            bav.AngularVelocity = Vector3.new(0, 0, 0)
+        end)
+        return
+    elseif p103 == "BackLeft" then
+        bv.Velocity = hrp.CFrame.lookVector * -16
+        local v108 = bav
+        local v109 = MaxValue
+        v108.MaxTorque = Vector3.new(0, v109, 0)
+        DodgeLeft:Play()
+        bav.AngularVelocity = Vector3.new(0, 0, 0)
+        DodgeLeft.Stopped:connect(function() --[[Anonymous function at line 1337]]
+            bv.Velocity = Vector3.new(0, 0, 0)
+            bav.AngularVelocity = Vector3.new(0, 0, 0)
+        end)
+    elseif p103 == "BackRight" then
+        bv.Velocity = hrp.CFrame.lookVector * -16
+        local v110 = bav
+        local v111 = MaxValue
+        v110.MaxTorque = Vector3.new(0, v111, 0)
+        DodgeRight:Play()
+        bav.AngularVelocity = Vector3.new(0, 0, 0)
+        DodgeRight.Stopped:connect(function() --[[Anonymous function at line 1346]]
+            bv.Velocity = Vector3.new(0, 0, 0)
+            bav.AngularVelocity = Vector3.new(0, 0, 0)
+        end)
+    end
+end
+local u112 = {
+    "Zebra",
+    "Warthog",
+    "Lycaon",
+    "Cheetah",
+    "Kongoni",
+    "Topi",
+    "Impala",
+    "Tommie",
+    "Gnu",
+    "Ostrich",
+    "Stork",
+    "Dove",
+    "FishEagle",
+    "Martial",
+    "Vulture",
+    "BigVulture",
+    "Hyena",
+    "Leopard",
+    "Giraffe",
+    "Buffalo",
+    "Hare"
+}
+local u113 = {
+    "Stork",
+    "Dove",
+    "FishEagle",
+    "Martial",
+    "Vulture",
+    "BigVulture",
+    "Hyena",
+    "Leopard",
+    "Lycaon",
+    "Cheetah",
+    "Lion",
+    "Hare"
+}
+u4.Button1Down:connect(function() --[[Anonymous function at line 1359]]
+    --[[
+    Upvalues:
+        [1] = u2
+        [2] = u113
+        [3] = u18
+        [4] = u23
+        [5] = u3
+        [6] = u40
+        [7] = u41
+        [8] = u31
+        [9] = u32
+        [10] = u28
+        [11] = u30
+        [12] = u29
+    --]]
+    local v114 = 20
+    local v115 = nil
+    for _, v116 in pairs(workspace:GetChildren()) do
+        if v116 ~= u2 and (v116:FindFirstChildOfClass("Humanoid") and v116:FindFirstChild("Torso") ~= nil) or v116 ~= u2 and (v116:FindFirstChildOfClass("Humanoid") and v116:FindFirstChild("Spine01") ~= nil) then
+            local v117 = v116:FindFirstChildOfClass("Humanoid")
+            if table.find(u113, v117:GetAttribute("Species")) and v117:GetAttribute("IsBeingPounced") == false then
+                local v118 = (v116.HumanoidRootPart.Position - hrp.Position).magnitude
+                if v118 < v114 then
+                    v115 = v116
+                    v114 = v118
+                end
+            end
+        end
+    end
+    if v115 ~= nil and (not u2.SecHead.AlignPosition2.Attachment1 and (Stam > 0.5 and (u18 == true and (Secondary.WeightCurrent == 0 and (GrabLeapMed.WeightCurrent == 0 and (GrabMed.WeightCurrent == 0 and (DodgeRight.IsPlaying == false and (DodgeLeft.IsPlaying == false and (Primary.WeightCurrent == 0 and (u23 == false and (u3:GetAttribute("Pounced") == false and (u40 == false and (u41 == false and bv.Velocity.magnitude < SprintSpeed + 2))))))))))))) then
+        local v119 = { u2.Jaw.Attack1, u2.Jaw.Attack2 }
+        v119[math.random(1, #v119)]:Play()
+        u2.Jaw.Growl:Stop()
+        if u31 == true then
+            Secondary:Play(0.2, 1, 1)
+        elseif u32 == true then
+            Primary:Play(0.2, 1, 1)
+        elseif u32 == false and u31 == false then
+            local v120 = { Primary, Secondary }
+            v120[math.random(1, #v120)]:Play(0.2, 1, 1)
+        end
+        u28 = true
+        u18 = false
+        if u30 == true then
+            bv.Velocity = hrp.CFrame.lookVector * TrotSpeed
+        elseif u29 == true then
+            bv.Velocity = hrp.CFrame.lookVector * -TrotSpeed
+        elseif u29 == false and u30 == false then
+            bv.Velocity = Vector3.new(0, 0, 0)
+        end
+        Walk:Stop()
+        Jog:Stop()
+        Trot:Stop()
+        Run:Stop()
+        Idle:Play()
+        Stam = Stam - MaxStam * 0.01
+    end
+end)
+Primary.Stopped:connect(function() --[[Anonymous function at line 1413]]
+    --[[
+    Upvalues:
+        [1] = u18
+    --]]
+    u18 = true
+end)
+Secondary.Stopped:connect(function() --[[Anonymous function at line 1417]]
+    --[[
+    Upvalues:
+        [1] = u18
+    --]]
+    u18 = true
+end)
+u4.Button2Down:connect(function() --[[Anonymous function at line 1421]]
+    --[[
+    Upvalues:
+        [1] = u2
+        [2] = u112
+        [3] = u23
+        [4] = u18
+        [5] = u3
+        [6] = u40
+        [7] = u41
+        [8] = u75
+        [9] = u34
+        [10] = u28
+        [11] = u12
+    --]]
+    local v121 = 20
+    local v122 = nil
+    for _, v123 in pairs(workspace:GetChildren()) do
+        if v123 ~= u2 and (v123:FindFirstChildOfClass("Humanoid") and v123:FindFirstChild("Torso") ~= nil) or v123 ~= u2 and (v123:FindFirstChildOfClass("Humanoid") and v123:FindFirstChild("Spine01") ~= nil) then
+            local v124 = v123:FindFirstChildOfClass("Humanoid")
+            if table.find(u112, v124:GetAttribute("Species")) then
+                local v125
+                if v124:GetAttribute("IsBeingPounced") == false and (v124:GetAttribute("Species") ~= "Giraffe" and v124:GetAttribute("Species") ~= "Buffalo") then
+                    v125 = (v123.HumanoidRootPart.Position - hrp.Position).magnitude
+                    if v125 < v121 then
+                        v122 = v123
+                    else
+                        v125 = v121
+                    end
+                else
+                    v125 = v121
+                end
+                if v124:GetAttribute("Species") == "Giraffe" or v124:GetAttribute("Species") == "Buffalo" then
+                    v121 = (v123.HumanoidRootPart.Position - hrp.Position).magnitude
+                    if v121 < v125 then
+                        v122 = v123
+                    else
+                        v121 = v125
+                    end
+                else
+                    v121 = v125
+                end
+            end
+        end
+    end
+    if Stam > 3 and (not u2.SecHead.AlignPosition2.Attachment1 and (DodgeLeft.IsPlaying == false and (DodgeRight.IsPlaying == false and (u23 == false and (v122 ~= nil and (u18 == true and (u3:GetAttribute("Pounced") == false and (u40 == false and (u41 == false and (u75 == true and u34 == false)))))))))) then
+        if bv.Velocity.magnitude < WalkSpeed + 2 then
+            if GrabMed.IsPlaying == false and (GrabMed.WeightCurrent == 0 and (GrabLow.IsPlaying == false and (GrabLow.WeightCurrent == 0 and (GrabLeapMed.IsPlaying == false and (GrabLeapMed.WeightCurrent == 0 and (GrabLeapLow.IsPlaying == false and GrabLeapLow.WeightCurrent == 0)))))) then
+                if v122.Humanoid2:GetAttribute("Species") == "Giraffe" and (v122.Humanoid2:GetAttribute("Species") ~= "Giraffe" or v122.Humanoid2:GetAttribute("Downed") ~= true) then
+                    if v122.Humanoid2:GetAttribute("Species") == "Giraffe" and v122.Humanoid2:GetAttribute("Downed") == false then
+                        Stam = Stam - MaxStam / 7
+                        bv.Velocity = hrp.CFrame.lookVector * SprintSpeed
+                        bav.AngularVelocity = Vector3.new(0, 0, 0)
+                        GrabLeapLow:Play(0.1, 1, 0.95)
+                    end
+                else
+                    Stam = Stam - MaxStam / 35
+                    u28 = true
+                    bv.Velocity = Vector3.new(0, 0, 0)
+                    bav.AngularVelocity = Vector3.new(0, 0, 0)
+                    GrabMed:Play(0.1, 1, 1)
+                end
+                local u126 = Instance.new("Part")
+                u126.Name = "HitBox"
+                u126.Parent = workspace
+                local v127 = hrp.Size.Z * 2
+                local v128 = hrp.Size.Z * 2
+                local v129 = hrp.Size.Z * 2
+                u126.Size = Vector3.new(v127, v128, v129)
+                u126.CFrame = hrp.CFrame * CFrame.new(0, -hrp.Size.Y, -hrp.Size.Z)
+                u126.Massless = true
+                u126.Shape = "Ball"
+                u126.CanCollide = false
+                u126.Transparency = 1
+                local u130 = Instance.new("WeldConstraint")
+                u130.Part0 = u2.Torso
+                u130.Part1 = u126
+                u130.Parent = u2.Torso
+                u126.Touched:connect(function(p131) --[[Anonymous function at line 1480]]
+                    --[[
+                    Upvalues:
+                        [1] = u12
+                        [2] = u112
+                        [3] = u2
+                        [4] = u126
+                        [5] = u130
+                    --]]
+                    if p131 and (p131.Parent and p131.Transparency == 0) then
+                        local v132 = p131.Parent:FindFirstChildOfClass("Humanoid")
+                        if v132 and (v132 and (u12 == true and (table.find(u112, v132:GetAttribute("Species")) and v132:GetAttribute("IsBeingPounced") == false))) then
+                            u12 = false
+                            if p131.Parent.Humanoid2:GetAttribute("Species") == "Giraffe" or p131.Parent.Humanoid2:GetAttribute("Species") == "Buffalo" then
+                                if p131.Parent.Humanoid2:GetAttribute("Species") == "Giraffe" then
+                                    local v133 = false
+                                    local v134 = nil
+                                    local v135 = (hrp.Position - p131.Parent.Neck02.Position).Magnitude
+                                    local v136 = (hrp.Position - p131.Parent.Thigh01.Position).Magnitude
+                                    local v137 = (hrp.Position - p131.Parent.Thigh02.Position).Magnitude
+                                    local v138 = (hrp.Position - p131.Parent.Shoulder01.Position).Magnitude
+                                    local v139 = (hrp.Position - p131.Parent.Shoulder02.Position).Magnitude
+                                    local v140 = table.unpack
+                                    local v141 = math.min(v140({
+                                        v135,
+                                        v136,
+                                        v137,
+                                        v138,
+                                        v139
+                                    }))
+                                    if v141 == v135 then
+                                        if p131.Parent.Humanoid2:GetAttribute("Downed") == true then
+                                            v134 = p131.Parent.Neck02
+                                        end
+                                    elseif v141 == v136 then
+                                        if p131.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                            v134 = p131.Parent.Thigh01
+                                        end
+                                    elseif v141 == v137 then
+                                        if p131.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                            v134 = p131.Parent.Thigh02
+                                        end
+                                    elseif v141 == v138 then
+                                        if p131.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                            v134 = p131.Parent.Shoulder01
+                                        end
+                                    elseif v141 == v139 and p131.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                        v134 = p131.Parent.Shoulder02
+                                    end
+                                    for _, v142 in pairs(workspace:GetChildren()) do
+                                        if v142 ~= u2 and (v142:FindFirstChildOfClass("Humanoid") and (v142:FindFirstChild("Torso") ~= nil and (v142.HumanoidRootPart:FindFirstChild("Connection") and v142.HumanoidRootPart.Connection.Part1 == v134))) then
+                                            print("Pounced same spot.")
+                                            v133 = true
+                                        end
+                                    end
+                                    if v133 == false and v134 ~= nil then
+                                        game.ReplicatedStorage.RemoteEvent15:FireServer(p131)
+                                    end
+                                elseif p131.Parent.Humanoid2:GetAttribute("Species") == "Buffalo" then
+                                    local v143 = false
+                                    local v144 = nil
+                                    local v145 = (hrp.Position - p131.Parent.Hip.Position).Magnitude
+                                    local v146 = (hrp.Position - p131.Parent.Torso.Position).Magnitude
+                                    local v147 = (hrp.Position - p131.Parent.Neck2.Position).Magnitude
+                                    local v148 = (hrp.Position - p131.Parent.Flank.Position).Magnitude
+                                    local v149 = (hrp.Position - p131.Parent.Belly1.Position).Magnitude
+                                    local v150 = table.unpack
+                                    local v151 = math.min(v150({
+                                        v146,
+                                        v147,
+                                        v148,
+                                        v149,
+                                        v145
+                                    }))
+                                    if v151 == v145 then
+                                        if p131.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                            v144 = p131.Parent.Hip
+                                        end
+                                    elseif v151 == v146 then
+                                        if p131.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                            v144 = p131.Parent.Torso
+                                        end
+                                    elseif v151 == v147 then
+                                        if p131.Parent.Humanoid2:GetAttribute("Downed") == true then
+                                            v144 = p131.Parent.Neck2
+                                        end
+                                    elseif v151 == v148 then
+                                        if p131.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                            v144 = p131.Parent.Flank
+                                        end
+                                    elseif v151 == v149 and p131.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                        v144 = p131.Parent.Belly1
+                                    end
+                                    for _, v152 in pairs(workspace:GetChildren()) do
+                                        if v152 ~= u2 and (v152:FindFirstChildOfClass("Humanoid") and (v152:FindFirstChild("Torso") ~= nil and (v152.HumanoidRootPart:FindFirstChild("Connection") and v152.HumanoidRootPart.Connection.Part1 == v144))) then
+                                            print("Pounced same spot.")
+                                            v143 = true
+                                        end
+                                    end
+                                    if v143 == false and v144 ~= nil then
+                                        game.ReplicatedStorage.RemoteEvent15:FireServer(v144)
+                                    end
+                                end
+                            else
+                                game.ReplicatedStorage.RemoteEvent3:FireServer(p131.Parent.HumanoidRootPart)
+                            end
+                            game:GetService("Debris"):AddItem(u126, 0.1)
+                            game:GetService("Debris"):AddItem(u130, 0.1)
+                        end
+                    end
+                end)
+                GrabMed.Stopped:connect(function() --[[Anonymous function at line 1589]]
+                    --[[
+                    Upvalues:
+                        [1] = u126
+                        [2] = u130
+                    --]]
+                    game:GetService("Debris"):AddItem(u126, 0.1)
+                    game:GetService("Debris"):AddItem(u130, 0.1)
+                end)
+                GrabLeapLow.Stopped:connect(function() --[[Anonymous function at line 1593]]
+                    --[[
+                    Upvalues:
+                        [1] = u126
+                        [2] = u130
+                    --]]
+                    game:GetService("Debris"):AddItem(u126, 0.1)
+                    game:GetService("Debris"):AddItem(u130, 0.1)
+                end)
+                return
+            end
+        elseif GrabMed.IsPlaying == false and (GrabMed.WeightCurrent == 0 and (GrabLow.IsPlaying == false and (GrabLow.WeightCurrent == 0 and (GrabLeapMed.IsPlaying == false and (GrabLeapMed.WeightCurrent == 0 and (GrabLeapLow.IsPlaying == false and GrabLeapLow.WeightCurrent == 0)))))) then
+            u28 = true
+            bv.Velocity = hrp.CFrame.lookVector * SprintSpeed
+            bav.AngularVelocity = Vector3.new(0, 0, 0)
+            if v122.Humanoid2:GetAttribute("Species") == "Giraffe" and (v122.Humanoid2:GetAttribute("Species") ~= "Giraffe" or v122.Humanoid2:GetAttribute("Downed") ~= true) then
+                if v122.Humanoid2:GetAttribute("Species") == "Giraffe" and v122.Humanoid2:GetAttribute("Downed") == false then
+                    GrabLeapLow:Play(0.1, 1, 0.95)
+                    Stam = Stam - MaxStam / 7
+                end
+            else
+                GrabLeapMed:Play(0.1, 1, 0.95)
+                Stam = Stam - MaxStam / 11
+            end
+            local u153 = Instance.new("Part")
+            u153.Name = "HitBox"
+            u153.Parent = workspace
+            local v154 = hrp.Size.Z * 2
+            local v155 = hrp.Size.Z * 2
+            local v156 = hrp.Size.Z * 2
+            u153.Size = Vector3.new(v154, v155, v156)
+            u153.CFrame = hrp.CFrame * CFrame.new(0, -hrp.Size.Y, -hrp.Size.Z)
+            u153.Massless = true
+            u153.Shape = "Ball"
+            u153.CanCollide = false
+            u153.Transparency = 1
+            local u157 = Instance.new("WeldConstraint")
+            u157.Part0 = u2.Torso
+            u157.Part1 = u153
+            u157.Parent = u2.Torso
+            u153.Touched:connect(function(p158) --[[Anonymous function at line 1629]]
+                --[[
+                Upvalues:
+                    [1] = u12
+                    [2] = u112
+                    [3] = u2
+                    [4] = u153
+                    [5] = u157
+                --]]
+                if p158 and (p158.Parent and p158.Transparency == 0) then
+                    local v159 = p158.Parent:FindFirstChildOfClass("Humanoid")
+                    if v159 and (v159 and (u12 == true and (table.find(u112, v159:GetAttribute("Species")) and v159:GetAttribute("IsBeingPounced") == false))) then
+                        u12 = false
+                        if p158.Parent.Humanoid2:GetAttribute("Species") == "Giraffe" or p158.Parent.Humanoid2:GetAttribute("Species") == "Buffalo" then
+                            if p158.Parent.Humanoid2:GetAttribute("Species") == "Giraffe" then
+                                local v160 = false
+                                local v161 = nil
+                                local v162 = (hrp.Position - p158.Parent.Neck02.Position).Magnitude
+                                local v163 = (hrp.Position - p158.Parent.Thigh01.Position).Magnitude
+                                local v164 = (hrp.Position - p158.Parent.Thigh02.Position).Magnitude
+                                local v165 = (hrp.Position - p158.Parent.Shoulder01.Position).Magnitude
+                                local v166 = (hrp.Position - p158.Parent.Shoulder02.Position).Magnitude
+                                local v167 = table.unpack
+                                local v168 = math.min(v167({
+                                    v162,
+                                    v163,
+                                    v164,
+                                    v165,
+                                    v166
+                                }))
+                                if v168 == v162 then
+                                    if p158.Parent.Humanoid2:GetAttribute("Downed") == true then
+                                        v161 = p158.Parent.Neck02
+                                    end
+                                elseif v168 == v163 then
+                                    if p158.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                        v161 = p158.Parent.Thigh01
+                                    end
+                                elseif v168 == v164 then
+                                    if p158.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                        v161 = p158.Parent.Thigh02
+                                    end
+                                elseif v168 == v165 then
+                                    if p158.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                        v161 = p158.Parent.Shoulder01
+                                    end
+                                elseif v168 == v166 and p158.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                    v161 = p158.Parent.Shoulder02
+                                end
+                                for _, v169 in pairs(workspace:GetChildren()) do
+                                    if v169 ~= u2 and (v169:FindFirstChildOfClass("Humanoid") and (v169:FindFirstChild("Torso") ~= nil and (v169.HumanoidRootPart:FindFirstChild("Connection") and v169.HumanoidRootPart.Connection.Part1 == v161))) then
+                                        print("Pounced same spot.")
+                                        v160 = true
+                                    end
+                                end
+                                if v160 == false and v161 ~= nil then
+                                    game.ReplicatedStorage.RemoteEvent15:FireServer(v161)
+                                end
+                            elseif p158.Parent.Humanoid2:GetAttribute("Species") == "Buffalo" then
+                                local v170 = false
+                                local v171 = nil
+                                local v172 = (hrp.Position - p158.Parent.Hip.Position).Magnitude
+                                local v173 = (hrp.Position - p158.Parent.Torso.Position).Magnitude
+                                local v174 = (hrp.Position - p158.Parent.Neck2.Position).Magnitude
+                                local v175 = (hrp.Position - p158.Parent.Flank.Position).Magnitude
+                                local v176 = (hrp.Position - p158.Parent.Belly1.Position).Magnitude
+                                local v177 = table.unpack
+                                local v178 = math.min(v177({
+                                    v173,
+                                    v174,
+                                    v175,
+                                    v176,
+                                    v172
+                                }))
+                                if v178 == v172 then
+                                    if p158.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                        v171 = p158.Parent.Hip
+                                    end
+                                elseif v178 == v173 then
+                                    if p158.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                        v171 = p158.Parent.Torso
+                                    end
+                                elseif v178 == v174 then
+                                    if p158.Parent.Humanoid2:GetAttribute("Downed") == true then
+                                        v171 = p158.Parent.Neck2
+                                    end
+                                elseif v178 == v175 then
+                                    if p158.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                        v171 = p158.Parent.Flank
+                                    end
+                                elseif v178 == v176 and p158.Parent.Humanoid2:GetAttribute("Downed") == false then
+                                    v171 = p158.Parent.Belly1
+                                end
+                                for _, v179 in pairs(workspace:GetChildren()) do
+                                    if v179 ~= u2 and (v179:FindFirstChildOfClass("Humanoid") and (v179:FindFirstChild("Torso") ~= nil and (v179.HumanoidRootPart:FindFirstChild("Connection") and v179.HumanoidRootPart.Connection.Part1 == v171))) then
+                                        print("Pounced same spot.")
+                                        v170 = true
+                                    end
+                                end
+                                if v170 == false and v171 ~= nil then
+                                    game.ReplicatedStorage.RemoteEvent15:FireServer(v171)
+                                end
+                            end
+                        else
+                            game.ReplicatedStorage.RemoteEvent3:FireServer(p158.Parent.HumanoidRootPart)
+                        end
+                        game:GetService("Debris"):AddItem(u153, 0.1)
+                        game:GetService("Debris"):AddItem(u157, 0.1)
+                    end
+                end
+            end)
+            GrabLeapMed.Stopped:connect(function() --[[Anonymous function at line 1738]]
+                --[[
+                Upvalues:
+                    [1] = u153
+                    [2] = u157
+                --]]
+                game:GetService("Debris"):AddItem(u153, 0.1)
+                game:GetService("Debris"):AddItem(u157, 0.1)
+            end)
+            GrabLeapLow.Stopped:connect(function() --[[Anonymous function at line 1742]]
+                --[[
+                Upvalues:
+                    [1] = u153
+                    [2] = u157
+                --]]
+                game:GetService("Debris"):AddItem(u153, 0.1)
+                game:GetService("Debris"):AddItem(u157, 0.1)
+            end)
+        end
+    end
+end)
+local u180 = u3.Health
+u3.HealthChanged:connect(function() --[[Anonymous function at line 1763]]
+    --[[
+    Upvalues:
+        [1] = u3
+        [2] = u180
+        [3] = u1
+        [4] = u44
+    --]]
+    if u3.Health < u180 then
+        u180 = u3.Health
+        game:GetService("ReplicatedStorage").CorpseWeld:FireServer(false)
+    end
+    if u180 <= 0 then
+        print("Died")
+        game.ReplicatedStorage.RemoteEvent7:FireServer()
+        Die()
+        wait(5)
+        u1.PlayerGui.GameGui.Choose.Visible = true
+        u44.MouseIconEnabled = true
+        u44.MouseBehavior = Enum.MouseBehavior.Default
+    end
+end)
+u3.Seated:connect(function() --[[Anonymous function at line 1781]]
+    bv.MaxForce = Vector3.new(0, 0, 0)
+    bav.MaxTorque = Vector3.new(0, 0, 0)
+end)
+u3.Running:connect(function(p181) --[[Anonymous function at line 1790]]
+    --[[
+    Upvalues:
+        [1] = u28
+        [2] = u3
+        [3] = u14
+        [4] = u31
+        [5] = u32
+    --]]
+    totalspeed = p181
+    if p181 > 0.1 and CrouchLay.IsPlaying == true then
+        CrouchLay:Stop(0.3)
+    end
+    if u28 == false and u3:GetAttribute("Pounced") == false then
+        if p181 > 0.1 and (p181 < WalkSpeed + 2 and u14 == true) then
+            local v182 = nil
+            if Idle.IsPlaying == true then
+                Idle:Stop(1)
+            end
+            if CrouchIdle.IsPlaying == true then
+                CrouchIdle:Stop(1)
+            end
+            if CrouchTrot.IsPlaying == true then
+                v182 = CrouchTrot.TimePosition
+                CrouchTrot:Stop(1)
+            end
+            if IdleWalkLeft.IsPlaying == true then
+                v182 = IdleWalkLeft.TimePosition
+                IdleWalkLeft:Stop(1)
+            end
+            if IdleWalkRight.IsPlaying == true then
+                v182 = IdleWalkRight.TimePosition
+                IdleWalkRight:Stop(1)
+            end
+            if Walk.IsPlaying == true then
+                v182 = Walk.TimePosition
+                Walk:Stop(1)
+            end
+            if Trot.IsPlaying == true then
+                v182 = Trot.TimePosition
+                Trot:Stop(1)
+            end
+            if Jog.IsPlaying == true then
+                v182 = Jog.TimePosition
+                Jog:Stop(1)
+            end
+            if Run.IsPlaying == true then
+                v182 = Run.TimePosition
+                Run:Stop(1)
+            end
+            if CrouchWalk.IsPlaying == false then
+                CrouchWalk:Play(1)
+                CrouchWalk.TimePosition = v182
+            end
+        elseif p181 > 0.1 and (p181 < WalkSpeed + 2 and u14 == false) then
+            local v183 = nil
+            local v184 = 0.3
+            if Idle.IsPlaying == true then
+                Idle:Stop(0.3)
+            end
+            if CrouchIdle.IsPlaying == true then
+                CrouchIdle:Stop(0.3)
+            end
+            if CrouchWalk.IsPlaying == true then
+                v183 = CrouchWalk.TimePosition
+                CrouchWalk:Stop(1)
+                v184 = 1
+            end
+            if CrouchTrot.IsPlaying == true then
+                v183 = CrouchTrot.TimePosition
+                CrouchTrot:Stop(0.3)
+            end
+            if IdleWalkLeft.IsPlaying == true then
+                v183 = IdleWalkLeft.TimePosition
+                IdleWalkLeft:Stop(0.3)
+            end
+            if IdleWalkRight.IsPlaying == true then
+                v183 = IdleWalkRight.TimePosition
+                IdleWalkRight:Stop(0.3)
+            end
+            if Trot.IsPlaying == true then
+                v183 = Trot.TimePosition
+                Trot:Stop(0.3)
+            end
+            if Jog.IsPlaying == true then
+                v183 = Jog.TimePosition
+                Jog:Stop(0.3)
+            end
+            if Run.IsPlaying == true then
+                v183 = Run.TimePosition
+                Run:Stop(0.3)
+            end
+            if Walk.IsPlaying == false then
+                Walk:Play(v184)
+                Walk.TimePosition = v183
+            end
+        elseif WalkSpeed + 2 < p181 and (p181 < TrotSpeed + 2 and u14 == false) then
+            local v185 = nil
+            if Idle.IsPlaying == true then
+                Idle:Stop(0.3)
+            end
+            if CrouchIdle.IsPlaying == true then
+                CrouchIdle:Stop(0.3)
+            end
+            if CrouchWalk.IsPlaying == true then
+                v185 = CrouchWalk.TimePosition
+                CrouchWalk:Stop(0.3)
+            end
+            if CrouchTrot.IsPlaying == true then
+                v185 = CrouchTrot.TimePosition
+                CrouchTrot:Stop(0.3)
+            end
+            if Walk.IsPlaying == true then
+                v185 = Walk.TimePosition
+                Walk:Stop(0.3)
+            end
+            if Jog.IsPlaying == true then
+                v185 = Jog.TimePosition
+                Jog:Stop(0.3)
+            end
+            if Run.IsPlaying == true then
+                v185 = Run.TimePosition
+                Run:Stop(0.3)
+            end
+            if Trot.IsPlaying == false then
+                Trot:Play(0.3)
+                Trot.TimePosition = v185
+            end
+        elseif WalkSpeed + 2 < p181 and (p181 < TrotSpeed + 2 and u14 == true) then
+            local v186 = nil
+            if Idle.IsPlaying == true then
+                Idle:Stop(0.4)
+            end
+            if CrouchIdle.IsPlaying == true then
+                CrouchIdle:Stop(0.4)
+            end
+            if CrouchWalk.IsPlaying == true then
+                v186 = CrouchWalk.TimePosition
+                CrouchWalk:Stop(0.4)
+            end
+            if Trot.IsPlaying == true then
+                v186 = Trot.TimePosition
+                Trot:Stop(0.4)
+            end
+            if Walk.IsPlaying == true then
+                v186 = Walk.TimePosition
+                Walk:Stop(0.4)
+            end
+            if Jog.IsPlaying == true then
+                v186 = Jog.TimePosition
+                Jog:Stop(0.4)
+            end
+            if Run.IsPlaying == true then
+                v186 = Run.TimePosition
+                Run:Stop(0.4)
+            end
+            if CrouchTrot.IsPlaying == false then
+                CrouchTrot:Play(0.4)
+                CrouchTrot.TimePosition = v186
+            end
+        elseif TrotSpeed + 2 < p181 and p181 < JogSpeed + 2 then
+            local v187 = nil
+            if Idle.IsPlaying == true then
+                Idle:Stop(0.2)
+            end
+            if CrouchIdle.IsPlaying == true then
+                CrouchIdle:Stop(0.3)
+            end
+            if CrouchWalk.IsPlaying == true then
+                v187 = CrouchWalk.TimePosition
+                CrouchWalk:Stop(0.2)
+            end
+            if CrouchTrot.IsPlaying == true then
+                v187 = CrouchTrot.TimePosition
+                CrouchTrot:Stop(0.2)
+            end
+            if Walk.IsPlaying == true then
+                v187 = Walk.TimePosition
+                Walk:Stop(0.2)
+            end
+            if Trot.IsPlaying == true then
+                v187 = Trot.TimePosition
+                Trot:Stop(0.2)
+            end
+            if Run.IsPlaying == true then
+                v187 = Run.TimePosition
+                Run:Stop(0.2)
+            end
+            if Jog.IsPlaying == false then
+                Jog:Play(0.2)
+                Jog.TimePosition = v187
+            end
+        elseif JogSpeed + 2 < p181 then
+            local v188 = nil
+            if Idle.IsPlaying == true then
+                Idle:Stop(0.2)
+            end
+            if CrouchIdle.IsPlaying == true then
+                CrouchIdle:Stop(0.3)
+            end
+            if CrouchWalk.IsPlaying == true then
+                v188 = CrouchWalk.TimePosition
+                CrouchWalk:Stop(0.2)
+            end
+            if CrouchTrot.IsPlaying == true then
+                v188 = CrouchTrot.TimePosition
+                CrouchTrot:Stop(0.2)
+            end
+            if Walk.IsPlaying == true then
+                v188 = Walk.TimePosition
+                Walk:Stop(0.2)
+            end
+            if Trot.IsPlaying == true then
+                v188 = Trot.TimePosition
+                Trot:Stop(0.2)
+            end
+            if Jog.IsPlaying == true then
+                v188 = Jog.TimePosition
+                Jog:Stop(0.2)
+            end
+            if Run.IsPlaying == false then
+                Run:Play(0.2)
+                Run.TimePosition = v188
+            end
+        end
+    end
+    if p181 < 0.1 then
+        local v189 = 0
+        if u14 == false then
+            Idle:Play(0.4)
+        end
+        if CrouchTrot.IsPlaying == true then
+            v189 = CrouchTrot.TimePosition
+            CrouchTrot:Stop(0.2)
+        end
+        if Walk.IsPlaying == true then
+            v189 = Walk.TimePosition
+            Walk:Stop(0.2)
+        end
+        if Trot.IsPlaying == true then
+            v189 = Trot.TimePosition
+            Trot:Stop(0.2)
+        end
+        if Jog.IsPlaying == true then
+            v189 = Jog.TimePosition
+            Jog:Stop(0.2)
+        end
+        if Run.IsPlaying == true then
+            v189 = Run.TimePosition
+            Run:Stop(0.2)
+        end
+        if u31 == true and (u32 == false and (IdleWalkRight.IsPlaying == false and u14 == false)) then
+            IdleWalkLeft:Stop(0.4)
+            IdleWalkRight:Play(0.4)
+            IdleWalkRight.TimePosition = v189
+        end
+        if u31 == false and (u32 == true and (IdleWalkLeft.IsPlaying == false and u14 == false)) then
+            IdleWalkRight:Stop(0.4)
+            IdleWalkLeft:Play(0.4)
+            IdleWalkLeft.TimePosition = v189
+        end
+    end
+end)
+u2.DescendantAdded:connect(function(p190) --[[Anonymous function at line 2057]]
+    --[[
+    Upvalues:
+        [1] = u3
+        [2] = u23
+        [3] = u19
+        [4] = u24
+        [5] = u5
+        [6] = u1
+        [7] = u44
+    --]]
+    if p190.Name == "Success" and (u3:GetAttribute("Pounced") == true and (GrabLeapLow.IsPlaying ~= true and GrabLeapMed.IsPlaying ~= true)) then
+        local _ = GrabMed.IsPlaying == true
+    end
+    if p190.Name == "Hit" then
+        if u23 == true then
+            u23 = false
+            if u3:GetAttribute("IsBeingPounced") == false and u3:GetAttribute("Downed") == false then
+                u19 = true
+            end
+            u24 = false
+            u5.CameraType = "Custom"
+            u1.PlayerGui.GameGui.Choose.Visible = false
+            u1.PlayerGui:FindFirstChild("GameGui").Stats.Respawn.Visible = false
+            u1.PlayerGui:FindFirstChild("GameGui").Stats.Respawn.Text = "Can Respawn In: " .. MaxTime
+            Time = MaxTime
+            u44.MouseIconEnabled = false
+            u44.MouseBehavior = Enum.MouseBehavior.LockCenter
+        end
+        if p190.Value.Humanoid2:GetAttribute("Species") == "Hyena" then
+            if u3:GetAttribute("Gender") == "Female" then
+                if math.random(1, 2) == 1 and u3:GetAttribute("Pounced") == true then
+                    game.ReplicatedStorage.RemoteEvent4:FireServer()
+                    return
+                end
+            elseif u3:GetAttribute("Gender") == "Male" and (math.random(1, 3) == 1 and u3:GetAttribute("Pounced") == true) then
+                game.ReplicatedStorage.RemoteEvent4:FireServer()
+                return
+            end
+        elseif p190.Value.Humanoid2:GetAttribute("Species") == "Lycaon" then
+            if u3:GetAttribute("Gender") == "Female" then
+                if math.random(1, 4) == 1 and u3:GetAttribute("Pounced") == true then
+                    game.ReplicatedStorage.RemoteEvent4:FireServer()
+                    return
+                end
+            elseif u3:GetAttribute("Gender") == "Male" and (math.random(1, 8) == 1 and u3:GetAttribute("Pounced") == true) then
+                game.ReplicatedStorage.RemoteEvent4:FireServer()
+                return
+            end
+        else
+            if p190.Value.Humanoid2:GetAttribute("Species") == "Lion" then
+                return
+            end
+            if (p190.Value.Humanoid2:GetAttribute("Species") == "Buffalo" or p190.Value.Humanoid2:GetAttribute("Species") == "Giraffe") and u3:GetAttribute("Pounced") == true then
+                game.ReplicatedStorage.RemoteEvent4:FireServer()
+                return
+            end
+        end
+    elseif p190.Name == "KnockOff" and u3:GetAttribute("Pounced") == true then
+        game.ReplicatedStorage.RemoteEvent4:FireServer()
+    end
+end)
+hrp.ChildAdded:Connect(function(p191) --[[Anonymous function at line 2138]]
+    --[[
+    Upvalues:
+        [1] = u19
+        [2] = u41
+        [3] = u34
+        [4] = u14
+        [5] = u15
+        [6] = u10
+    --]]
+    if p191.Name == "HyenaLatchMid" or (p191.Name == "HyenaLatchLeft" or p191.Name == "HyenaLatchRight") then
+        hrp.Anchored = false
+        if Sit.IsPlaying == true then
+            Sit:Stop()
+        end
+        if Sitting.IsPlaying == true then
+            Sitting:Stop()
+        end
+        if SitUp.IsPlaying == true then
+            SitUp:Stop()
+        end
+        if Lay.IsPlaying == true then
+            Lay:Stop()
+        end
+        if Laying.IsPlaying == true then
+            Laying:Stop()
+        end
+        if GetUp.IsPlaying == true then
+            GetUp:Stop()
+        end
+        if Eat.IsPlaying == true then
+            Eat:Stop()
+        end
+        if Eating.IsPlaying == true then
+            Eating:Stop()
+        end
+        if EatingEnd.IsPlaying == true then
+            EatingEnd:Stop()
+        end
+        if Drink.IsPlaying == true then
+            Drink:Stop()
+        end
+        if Drinking.IsPlaying == true then
+            Drinking:Stop()
+        end
+        if DrinkingEnd.IsPlaying == true then
+            DrinkingEnd:Stop()
+        end
+        if CrouchIdle.IsPlaying == true then
+            CrouchIdle:Stop()
+            Idle:Play()
+        end
+        if CrouchWalk.IsPlaying == true then
+            CrouchWalk:Stop()
+            Idle:Play()
+        end
+        if CrouchLay.IsPlaying == true then
+            CrouchLay:Stop()
+            Idle:Play()
+        end
+        u19 = true
+        u41 = false
+        u34 = false
+        u14 = false
+        u15 = false
+        u10 = true
+        game.ReplicatedStorage.RemoteEvent13:FireServer(false)
+    end
+end)
+hrp.ChildRemoved:Connect(function(p192) --[[Anonymous function at line 2199]]
+    --[[
+    Upvalues:
+        [1] = u10
+        [2] = u2
+    --]]
+    if p192.Name == "HyenaLatchMid" or (p192.Name == "HyenaLatchLeft" or p192.Name == "HyenaLatchRight") then
+        local v193 = false
+        for _, v194 in pairs(hrp:GetChildren()) do
+            if (v194.Name == "HyenaLatchMid" or (v194.Name == "HyenaLatchLeft" or v194.Name == "HyenaLatchRight")) and v194:IsDescendantOf(workspace) then
+                print("Happened")
+                v193 = true
+            end
+        end
+        if v193 == false then
+            u10 = false
+            for _, v195 in pairs(workspace:GetChildren()) do
+                if v195:IsA("Model") and v195 ~= u2 then
+                    local v196 = v195:FindFirstChild("HumanoidRootPart")
+                    if v196 then
+                        local v197 = v196:FindFirstChild("AlignPosition")
+                        if v197 and (v197.Attachment1 == nil and v197.ReactionForceEnabled == true) then
+                            v197.ReactionForceEnabled = false
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
+u3.Changed:connect(function() --[[Anonymous function at line 2233]]
+    --[[
+    Upvalues:
+        [1] = u14
+        [2] = u3
+    --]]
+    if u14 == true then
+        if u3.FloorMaterial == Enum.Material.Grass then
+            game.ReplicatedStorage.RemoteEvent13:FireServer(true)
+            return
+        end
+        game.ReplicatedStorage.RemoteEvent13:FireServer(false)
+    end
+end)
+workspace.ChildRemoved:connect(function(p198) --[[Anonymous function at line 2244]]
+    --[[
+    Upvalues:
+        [1] = u3
+        [2] = u2
+    --]]
+    if u3:GetAttribute("Pounced") == true and (hrp:FindFirstChild("Connection") and hrp.Connection.Part1.Parent == p198) then
+        game.ReplicatedStorage.RemoteEvent4:FireServer()
+    end
+    if u2.SecHead.AlignPosition2.Attachment1 ~= nil and u2.SecHead.AlignPosition2.Attachment1.Parent.Parent == p198 then
+        game.ReplicatedStorage.CorpseWeld:FireServer(false)
+        local v199 = u2.SecHead.AlignPosition2
+        local v200 = u2.SecHead.AlignOrientation2
+        v199.Attachment1 = nil
+        v200.Attachment1 = nil
+    end
+end)
+u3.AttributeChanged:connect(function() --[[Anonymous function at line 2262]]
+    --[[
+    Upvalues:
+        [1] = u3
+        [2] = u5
+        [3] = u2
+        [4] = u19
+    --]]
+    if u3:GetAttribute("Pounced") == true then
+        u3:SetAttribute("Pounced", false)
+        print("blocked lol")
+        return -- Stop the original function logic
+    end
+
+    if u3:GetAttribute("Pounced") == true then
+        Run:Stop()
+        Walk:Stop()
+        Trot:Stop()
+        CrouchWalk:Stop()
+        Jog:Stop()
+        Idle:Play()
+        u5.CameraSubject = u2.Torso
+        local v201 = hrp:FindFirstChild("Connection") and hrp.Connection.Part1.Parent:FindFirstChildOfClass("Humanoid")
+        if v201 then
+            if v201:GetAttribute("Species") == "Giraffe" then
+                if hrp.Connection.Part1.Name == "Thigh01" or (hrp.Connection.Part1.Name == "Thigh02" or (hrp.Connection.Part1.Name == "Shoulder01" or hrp.Connection.Part1.Name == "Shoulder02")) then
+                    if GrabGiraffeLimb.IsPlaying == false then
+                        GrabGiraffeLimb:Play()
+                        u3.Sit = true
+                        return
+                    end
+                elseif hrp.Connection.Part1.Name == "HumanoidRootPart" and GrabGiraffeNeck.IsPlaying == false then
+                    GrabGiraffeNeck:Play()
+                    return
+                end
+            elseif v201:GetAttribute("Species") == "Buffalo" then
+                if hrp.Connection.Part1.Name == "Hip" then
+                    if GrabBuffRump.IsPlaying == false then
+                        GrabBuffRump:Play()
+                        u3.Sit = true
+                        return
+                    end
+                elseif hrp.Connection.Part1.Name == "HumanoidRootPart" then
+                    if GrabBuffNeck.IsPlaying == false then
+                        GrabBuffNeck:Play(0.4)
+                        return
+                    end
+                elseif hrp.Connection.Part1.Name == "Torso" then
+                    if GrabBuffBack.IsPlaying == false then
+                        GrabBuffBack:Play()
+                        u3.Sit = true
+                        return
+                    end
+                elseif hrp.Connection.Part1.Name == "Belly1" then
+                    if GrabBuffSide.IsPlaying == false then
+                        GrabBuffSide:Play()
+                        u3.Sit = true
+                        return
+                    end
+                elseif hrp.Connection.Part1.Name == "Flank" and GrabBuffSide.IsPlaying == false then
+                    GrabBuffSide:Play()
+                    u3.Sit = true
+                    return
+                end
+            end
+        end
+    elseif u3:GetAttribute("Pounced") == false then
+        u5.CameraSubject = u3
+        u19 = true
+        if GrabGiraffeRear.IsPlaying == true then
+            wait(0.2)
+            GrabGiraffeRear:Stop(0.4)
+            u3.Sit = false
+        end
+        if GrabGiraffeLimb.IsPlaying == true then
+            wait(0.2)
+            GrabGiraffeLimb:Stop(0.4)
+            u3.Sit = false
+        end
+        if GrabGiraffeNeck.IsPlaying == true then
+            GrabGiraffeNeck:Stop(0.4)
+        end
+        if GrabBuffBack.IsPlaying == true then
+            wait(0.2)
+            GrabBuffBack:Stop()
+            u3.Sit = false
+        end
+        if GrabBuffRump.IsPlaying == true then
+            wait(0.2)
+            GrabBuffRump:Stop()
+            u3.Sit = false
+        end
+        if GrabBuffSide.IsPlaying == true then
+            wait(0.2)
+            GrabBuffSide:Stop()
+            u3.Sit = false
+        end
+        if GrabBuffNeck.IsPlaying == true then
+            wait(0.2)
+            GrabBuffNeck:Stop(0.4)
+            u3.Sit = false
+        end
+    end
+end)
+hrp.Changed:connect(function() --[[Anonymous function at line 2358]]
+    --[[
+    Upvalues:
+        [1] = u9
+        [2] = u3
+        [3] = u21
+    --]]
+    if (u9 - hrp.Position).magnitude > 1 and (false == false and (u3:GetAttribute("Pounced") == false and u21 == false)) then
+        hrp.CFrame = CFrame.new(u9)
+    end
+end)
+DrinkingEnd.Stopped:connect(function() --[[Anonymous function at line 2387]]
+    --[[
+    Upvalues:
+        [1] = u38
+        [2] = u23
+        [3] = u3
+        [4] = u34
+        [5] = u19
+        [6] = u18
+        [7] = u39
+    --]]
+    u38 = false
+    if u23 == false and (u3:GetAttribute("Pounced") == false and u34 == false) then
+        u19 = true
+        u18 = true
+        u39 = true
+    end
+end)
+Drink.Stopped:connect(function() --[[Anonymous function at line 2403]]
+    --[[
+    Upvalues:
+        [1] = u2
+    --]]
+    Drinking:Play(0.15)
+    u2.Jaw.DrinkingSound:Play()
+end)
+Drinking.Stopped:connect(function() --[[Anonymous function at line 2412]]
+    --[[
+    Upvalues:
+        [1] = u2
+    --]]
+    DrinkingEnd:Play(0.15)
+    u2.Jaw.DrinkingSound:Stop()
+end)
+Drinking.DidLoop:connect(function() --[[Anonymous function at line 2420]]
+    if Thirst < MaxThirst then
+        Thirst = Thirst + 1.6666666666667 * (Drinking.Length / Drinking.Speed)
+        if Thirst >= MaxThirst then
+            Drinking:Stop(0.15)
+            Thirst = MaxThirst
+        end
+    end
+end)
+EatingEnd.Stopped:connect(function() --[[Anonymous function at line 2435]]
+    --[[
+    Upvalues:
+        [1] = u11
+        [2] = u36
+        [3] = u23
+        [4] = u3
+        [5] = u34
+        [6] = u41
+        [7] = u19
+        [8] = u18
+        [9] = u39
+    --]]
+    u11 = nil
+    u36 = false
+    if u23 == false and (u3:GetAttribute("Pounced") == false and (u34 == false and u41 == false)) then
+        u19 = true
+        u18 = true
+        u39 = true
+    end
+end)
+Eat.Stopped:connect(function() --[[Anonymous function at line 2452]]
+    --[[
+    Upvalues:
+        [1] = u2
+    --]]
+    Eating:Play(0.15, 1, 0.6)
+    u2.Jaw.EatingSound:Play()
+end)
+Eating.Stopped:connect(function() --[[Anonymous function at line 2461]]
+    --[[
+    Upvalues:
+        [1] = u2
+    --]]
+    EatingEnd:Play(0.15, 1, 1)
+    u2.Jaw.EatingSound:Stop()
+end)
+Eating.DidLoop:connect(function() --[[Anonymous function at line 2469]]
+    --[[
+    Upvalues:
+        [1] = u11
+        [2] = u2
+    --]]
+    if Hunger < MaxHunger then
+        if Eating.IsPlaying == true and u11 then
+            local v202 = { u11 }
+            local v203 = Ray.new(hrp.CFrame.p, hrp.CFrame.lookVector * 10 - Vector3.new(0, 9, 0))
+            local v204, v205, _, _ = game.Workspace:FindPartOnRayWithWhitelist(v203, v202)
+            local _ = (u2.SecHead.CFrame.p - v205).magnitude
+            if v204 then
+                if v204:FindFirstChild("IsBone") == nil then
+                    game.ReplicatedStorage.RemoteEvent9:FireServer(v204, Eating.Length / Eating.Speed)
+                end
+            elseif not v204 then
+                Eating:Stop(0.15)
+            end
+        end
+        Hunger = Hunger + HungerRegen * (Eating.Length / Eating.Speed) / 4
+        if Hunger >= MaxHunger then
+            Eating:Stop(0.15)
+            Hunger = MaxHunger
+        end
+    end
+end)
+function RunGui(p206, p207)
+    p206:TweenSize(UDim2.new(p207, 0, 1, 0), "Out", "Quad", 1, false, nil)
+end
+function RunGui2(p208, p209)
+    p208:TweenSize(UDim2.new(p209, 0, 1, 0), "Out", "Quad", 1, false, nil)
+end
+local u210 = u2.Jaw
+u2.Hand01Claws.Touched:connect(function(p214) --[[Anonymous function at line 2564]]
+    --[[
+    Upvalues:
+        [1] = u113
+        [2] = u12
+    --]]
+    if p214 and p214.Transparency ~= 1 then
+        local v215 = p214.Parent:FindFirstChildOfClass("Humanoid")
+        if v215 and (table.find(u113, v215:GetAttribute("Species")) and (v215:GetAttribute("IsBeingPounced") == false and (u12 == true and Secondary.IsPlaying == true))) then
+            u12 = false
+            for i = 1, 150 do
+                game.ReplicatedStorage.RemoteEvent8:FireServer("Left Paw Hit", p214)
+            end
+        end
+    end
+end)
+u2.Hand02Claws.Touched:connect(function(p216) --[[Anonymous function at line 2580]]
+    --[[
+    Upvalues:
+        [1] = u113
+        [2] = u12
+    --]]
+    if p216 and p216.Transparency ~= 1 then
+        local v217 = p216.Parent:FindFirstChildOfClass("Humanoid")
+        if v217 and (table.find(u113, v217:GetAttribute("Species")) and (v217:GetAttribute("IsBeingPounced") == false and (u12 == true and Primary.IsPlaying == true))) then
+            u12 = false
+            for i = 1, 150 do
+                game.ReplicatedStorage.RemoteEvent8:FireServer("Right Paw Hit", p216)
+            end
+        end
+    end
+end)
+function onkeyframereached(p218)
+    --[[
+    Upvalues:
+        [1] = u3
+        [2] = u2
+        [3] = u12
+        [4] = u28
+    --]]
+    if p218 == "LaunchEnd" and (DodgeLeft.IsPlaying == false and DodgeRight.IsPlaying == false) then
+        bav.AngularVelocity = Vector3.new(0, 0, 0)
+        bv.Velocity = Vector3.new(0, 0, 0)
+    end
+    if u3.Sit == false then
+        if p218 == "LHWalk" or p218 == "LHTrot" then
+            local v219 = { workspace.Terrain, workspace.Water }
+            local v220 = Ray.new(u2.Hand01.CFrame.p + Vector3.new(0, 5, 0), Vector3.new(0, -10, 0))
+            local v221, v222, _, v223 = game.Workspace:FindPartOnRayWithWhitelist(v220, v219)
+            local _ = (u2.Hand01.CFrame.p + Vector3.new(0, 5, 0) - v222).magnitude
+            if v221 then
+                if v221.Name == "Terrain" then
+                    local v224 = {
+                        u2.Hand01.Step1,
+                        u2.Hand01.Step2,
+                        u2.Hand01.Step3,
+                        u2.Hand01.Step4
+                    }
+                    v224[math.random(1, #v224)]:Play()
+                    if v223 ~= Enum.Material.Mud then
+                        local _ = math.random(1, 25) == 3
+                    end
+                end
+                if v221.Name == "WaterPart" then
+                    local v225 = {
+                        u2.Hand01.Splash1,
+                        u2.Hand01.Splash2,
+                        u2.Hand01.Splash3,
+                        u2.Hand01.Splash4
+                    }
+                    v225[math.random(1, #v225)]:Play()
+                end
+            end
+        end
+        if p218 == "RHWalk" or p218 == "RHTrot" then
+            local v226 = { workspace.Terrain, workspace.Water }
+            local v227 = Ray.new(u2.Hand02.CFrame.p + Vector3.new(0, 5, 0), Vector3.new(0, -10, 0))
+            local v228, v229, _, v230 = game.Workspace:FindPartOnRayWithWhitelist(v227, v226)
+            local _ = (u2.Hand02.CFrame.p + Vector3.new(0, 5, 0) - v229).magnitude
+            if v228 then
+                if v228.Name == "Terrain" then
+                    local v231 = {
+                        u2.Hand02.Step1,
+                        u2.Hand02.Step2,
+                        u2.Hand02.Step3,
+                        u2.Hand02.Step4
+                    }
+                    v231[math.random(1, #v231)]:Play()
+                    if v230 ~= Enum.Material.Mud then
+                        local _ = math.random(1, 25) == 3
+                    end
+                end
+                if v228.Name == "WaterPart" then
+                    local v232 = {
+                        u2.Hand02.Splash1,
+                        u2.Hand02.Splash2,
+                        u2.Hand02.Splash3,
+                        u2.Hand02.Splash4
+                    }
+                    v232[math.random(1, #v232)]:Play()
+                end
+            end
+        end
+        if p218 == "LFWalk" or p218 == "LFTrot" then
+            local v233 = { workspace.Terrain, workspace.Water }
+            local v234 = Ray.new(u2.Foot01.CFrame.p + Vector3.new(0, 5, 0), Vector3.new(0, -10, 0))
+            local v235, v236, _, v237 = game.Workspace:FindPartOnRayWithWhitelist(v234, v233)
+            local _ = (u2.Foot01.CFrame.p + Vector3.new(0, 5, 0) - v236).magnitude
+            if v235 then
+                if v235.Name == "Terrain" then
+                    local v238 = {
+                        u2.Foot01.Step1,
+                        u2.Foot01.Step2,
+                        u2.Foot01.Step3,
+                        u2.Foot01.Step4
+                    }
+                    v238[math.random(1, #v238)]:Play()
+                    if v237 ~= Enum.Material.Mud then
+                        local _ = math.random(1, 25) == 3
+                    end
+                end
+                if v235.Name == "WaterPart" then
+                    local v239 = {
+                        u2.Foot01.Splash1,
+                        u2.Foot01.Splash2,
+                        u2.Foot01.Splash3,
+                        u2.Foot01.Splash4
+                    }
+                    v239[math.random(1, #v239)]:Play()
+                end
+            end
+        end
+        if p218 == "RFWalk" or p218 == "RFTrot" then
+            local v240 = { workspace.Terrain, workspace.Water }
+            local v241 = Ray.new(u2.Foot02.CFrame.p + Vector3.new(0, 5, 0), Vector3.new(0, -10, 0))
+            local v242, v243, _, v244 = game.Workspace:FindPartOnRayWithWhitelist(v241, v240)
+            local _ = (u2.Foot02.CFrame.p + Vector3.new(0, 5, 0) - v243).magnitude
+            if v242 then
+                if v242.Name == "Terrain" then
+                    local v245 = {
+                        u2.Foot02.Step1,
+                        u2.Foot02.Step2,
+                        u2.Foot02.Step3,
+                        u2.Foot02.Step4
+                    }
+                    v245[math.random(1, #v245)]:Play()
+                    if v244 ~= Enum.Material.Mud then
+                        local _ = math.random(1, 25) == 3
+                    end
+                end
+                if v242.Name == "WaterPart" then
+                    local v246 = {
+                        u2.Foot02.Splash1,
+                        u2.Foot02.Splash2,
+                        u2.Foot02.Splash3,
+                        u2.Foot02.Splash4
+                    }
+                    v246[math.random(1, #v246)]:Play()
+                end
+            end
+        end
+        if p218 == "LHRun" or p218 == "LHRun" then
+            local v247 = { workspace.Terrain, workspace.Water }
+            local v248 = Ray.new(u2.Hand01.CFrame.p + Vector3.new(0, 5, 0), Vector3.new(0, -10, 0))
+            local v249, v250, _, v251 = game.Workspace:FindPartOnRayWithWhitelist(v248, v247)
+            local _ = (u2.Hand01.CFrame.p + Vector3.new(0, 5, 0) - v250).magnitude
+            if v249 then
+                if v249.Name == "Terrain" then
+                    local v252 = {
+                        u2.Hand01.Step1,
+                        u2.Hand01.Step2,
+                        u2.Hand01.Step3,
+                        u2.Hand01.Step4
+                    }
+                    v252[math.random(1, #v252)]:Play()
+                    if v251 ~= Enum.Material.Mud then
+                        local _ = math.random(1, 25) == 3
+                    end
+                end
+                if v249.Name == "WaterPart" then
+                    local v253 = {
+                        u2.Hand01.Splash1,
+                        u2.Hand01.Splash2,
+                        u2.Hand01.Splash3,
+                        u2.Hand01.Splash4
+                    }
+                    v253[math.random(1, #v253)]:Play()
+                end
+            end
+        end
+        if p218 == "RHRun" or p218 == "RHRun" then
+            local v254 = { workspace.Terrain, workspace.Water }
+            local v255 = Ray.new(u2.Hand02.CFrame.p + Vector3.new(0, 5, 0), Vector3.new(0, -10, 0))
+            local v256, v257, _, v258 = game.Workspace:FindPartOnRayWithWhitelist(v255, v254)
+            local _ = (u2.Hand02.CFrame.p + Vector3.new(0, 5, 0) - v257).magnitude
+            if v256 then
+                if v256.Name == "Terrain" then
+                    local v259 = {
+                        u2.Hand02.Step1,
+                        u2.Hand02.Step2,
+                        u2.Hand02.Step3,
+                        u2.Hand02.Step4
+                    }
+                    v259[math.random(1, #v259)]:Play()
+                    if v258 ~= Enum.Material.Mud then
+                        local _ = math.random(1, 25) == 3
+                    end
+                end
+                if v256.Name == "WaterPart" then
+                    local v260 = {
+                        u2.Hand02.Splash1,
+                        u2.Hand02.Splash2,
+                        u2.Hand02.Splash3,
+                        u2.Hand02.Splash4
+                    }
+                    v260[math.random(1, #v260)]:Play()
+                end
+            end
+        end
+        if p218 == "LFRun" or p218 == "LFRun" then
+            local v261 = { workspace.Terrain, workspace.Water }
+            local v262 = Ray.new(u2.Foot01.CFrame.p + Vector3.new(0, 5, 0), Vector3.new(0, -10, 0))
+            local v263, v264, _, v265 = game.Workspace:FindPartOnRayWithWhitelist(v262, v261)
+            local _ = (u2.Foot01.CFrame.p + Vector3.new(0, 5, 0) - v264).magnitude
+            if v263 then
+                if v263.Name == "Terrain" then
+                    local v266 = {
+                        u2.Foot01.Step1,
+                        u2.Foot01.Step2,
+                        u2.Foot01.Step3,
+                        u2.Foot01.Step4
+                    }
+                    v266[math.random(1, #v266)]:Play()
+                    if v265 ~= Enum.Material.Mud then
+                        local _ = math.random(1, 25) == 3
+                    end
+                end
+                if v263.Name == "WaterPart" then
+                    local v267 = {
+                        u2.Foot01.Splash1,
+                        u2.Foot01.Splash2,
+                        u2.Foot01.Splash3,
+                        u2.Foot01.Splash4
+                    }
+                    v267[math.random(1, #v267)]:Play()
+                end
+            end
+        end
+        if p218 == "RFRun" or p218 == "LFRun" then
+            local v268 = { workspace.Terrain, workspace.Water }
+            local v269 = Ray.new(u2.Foot02.CFrame.p + Vector3.new(0, 5, 0), Vector3.new(0, -10, 0))
+            local v270, v271, _, v272 = game.Workspace:FindPartOnRayWithWhitelist(v269, v268)
+            local _ = (u2.Foot02.CFrame.p + Vector3.new(0, 5, 0) - v271).magnitude
+            if v270 then
+                if v270.Name == "Terrain" then
+                    local v273 = {
+                        u2.Foot02.Step1,
+                        u2.Foot02.Step2,
+                        u2.Foot02.Step3,
+                        u2.Foot02.Step4
+                    }
+                    v273[math.random(1, #v273)]:Play()
+                    if v272 ~= Enum.Material.Mud then
+                        local _ = math.random(1, 25) == 3
+                    end
+                end
+                if v270.Name == "WaterPart" then
+                    local v274 = {
+                        u2.Foot02.Splash1,
+                        u2.Foot02.Splash2,
+                        u2.Foot02.Splash3,
+                        u2.Foot02.Splash4
+                    }
+                    v274[math.random(1, #v274)]:Play()
+                end
+            end
+        end
+        if p218 == "LHRFTrot" then
+            local v275 = { workspace.Terrain, workspace.Water }
+            local v276 = Ray.new(u2.Foot02.CFrame.p + Vector3.new(0, 5, 0), Vector3.new(0, -10, 0))
+            local v277, v278, _, v279 = game.Workspace:FindPartOnRayWithWhitelist(v276, v275)
+            local _ = (u2.Foot02.CFrame.p + Vector3.new(0, 5, 0) - v278).magnitude
+            if v277 then
+                if v277.Name == "Terrain" then
+                    local v280 = {
+                        u2.Foot02.Step1,
+                        u2.Foot02.Step2,
+                        u2.Foot02.Step3,
+                        u2.Foot02.Step4
+                    }
+                    v280[math.random(1, #v280)]:Play()
+                    if v279 ~= Enum.Material.Mud then
+                        local _ = math.random(1, 25) == 3
+                    end
+                end
+                if v277.Name == "WaterPart" then
+                    local v281 = {
+                        u2.Foot02.Splash1,
+                        u2.Foot02.Splash2,
+                        u2.Foot02.Splash3,
+                        u2.Foot02.Splash4
+                    }
+                    v281[math.random(1, #v281)]:Play()
+                end
+            end
+            local v282 = { workspace.Terrain, workspace.Water }
+            local v283 = Ray.new(u2.Hand01.CFrame.p + Vector3.new(0, 5, 0), Vector3.new(0, -10, 0))
+            local v284, v285, _, v286 = game.Workspace:FindPartOnRayWithWhitelist(v283, v282)
+            local _ = (u2.Hand01.CFrame.p + Vector3.new(0, 5, 0) - v285).magnitude
+            if v284 then
+                if v284.Name == "Terrain" then
+                    local v287 = {
+                        u2.Hand01.Step1,
+                        u2.Hand01.Step2,
+                        u2.Hand01.Step3,
+                        u2.Hand01.Step4
+                    }
+                    v287[math.random(1, #v287)]:Play()
+                    if v286 ~= Enum.Material.Mud then
+                        local _ = math.random(1, 25) == 3
+                    end
+                end
+                if v284.Name == "WaterPart" then
+                    local v288 = {
+                        u2.Hand01.Splash1,
+                        u2.Hand01.Splash2,
+                        u2.Hand01.Splash3,
+                        u2.Hand01.Splash4
+                    }
+                    v288[math.random(1, #v288)]:Play()
+                end
+            end
+        end
+        if p218 == "RHLFTrot" then
+            local v289 = { workspace.Terrain, workspace.Water }
+            local v290 = Ray.new(u2.Foot01.CFrame.p + Vector3.new(0, 5, 0), Vector3.new(0, -10, 0))
+            local v291, v292, _, v293 = game.Workspace:FindPartOnRayWithWhitelist(v290, v289)
+            local _ = (u2.Foot01.CFrame.p + Vector3.new(0, 5, 0) - v292).magnitude
+            if v291 then
+                if v291.Name == "Terrain" then
+                    local v294 = {
+                        u2.Foot01.Step1,
+                        u2.Foot01.Step2,
+                        u2.Foot01.Step3,
+                        u2.Foot01.Step4
+                    }
+                    v294[math.random(1, #v294)]:Play()
+                    if v293 ~= Enum.Material.Mud then
+                        local _ = math.random(1, 25) == 3
+                    end
+                end
+                if v291.Name == "WaterPart" then
+                    local v295 = {
+                        u2.Foot01.Splash1,
+                        u2.Foot01.Splash2,
+                        u2.Foot01.Splash3,
+                        u2.Foot01.Splash4
+                    }
+                    v295[math.random(1, #v295)]:Play()
+                end
+            end
+            local v296 = { workspace.Terrain, workspace.Water }
+            local v297 = Ray.new(u2.Hand02.CFrame.p + Vector3.new(0, 5, 0), Vector3.new(0, -10, 0))
+            local v298, v299, _, v300 = game.Workspace:FindPartOnRayWithWhitelist(v297, v296)
+            local _ = (u2.Hand02.CFrame.p + Vector3.new(0, 5, 0) - v299).magnitude
+            if v298 then
+                if v298.Name == "Terrain" then
+                    local v301 = {
+                        u2.Hand02.Step1,
+                        u2.Hand02.Step2,
+                        u2.Hand02.Step3,
+                        u2.Hand02.Step4
+                    }
+                    v301[math.random(1, #v301)]:Play()
+                    if v300 ~= Enum.Material.Mud then
+                        local _ = math.random(1, 25) == 3
+                    end
+                end
+                if v298.Name == "WaterPart" then
+                    local v302 = {
+                        u2.Hand02.Splash1,
+                        u2.Hand02.Splash2,
+                        u2.Hand02.Splash3,
+                        u2.Hand02.Splash4
+                    }
+                    v302[math.random(1, #v302)]:Play()
+                end
+            end
+        end
+    end
+    if p218 == "CanDmg" then
+        u12 = true
+    end
+    if p218 == "CantDmg" then
+        u12 = false
+        if Primary.IsPlaying == true or Secondary.IsPlaying == true then
+            bv.Velocity = hrp.CFrame.lookVector * 0
+        end
+    end
+    if p218 == "sitting" and u28 == false then
+        Sitting:Play()
+        Sit:Stop(0.2)
+    end
+    if p218 == "Laying" and u28 == false then
+        Laying:Play()
+        Lay:Stop(0.2)
+    end
+    if p218 == "QuickTurnEnd" then
+        bv.Velocity = Vector3.new(0, 0, 0)
+        bav.AngularVelocity = Vector3.new(0, 0, 0)
+    end
+    if p218 == "RunStartEnd" then
+        if Walk.IsPlaying == true then
+            Walk.TimePosition = 0.05
+        end
+        if Trot.IsPlaying == true then
+            Trot.TimePosition = 0.05
+        end
+        if Jog.IsPlaying == true then
+            Jog.TimePosition = 0.05
+        end
+        if Run.IsPlaying == true then
+            Run.TimePosition = 0.05
+        end
+        RunStart:Stop(0.2)
+    end
+    if p218 == "EndAnim" then
+        if DodgeLeft.IsPlaying == true then
+            DodgeLeft:Stop(0.5)
+        end
+        if DodgeRight.IsPlaying == true then
+            DodgeRight:Stop(0.5)
+        end
+    end
+end
+IdleWalkLeft.KeyframeReached:connect(onkeyframereached)
+IdleWalkRight.KeyframeReached:connect(onkeyframereached)
+Walk.KeyframeReached:connect(onkeyframereached)
+Jog.KeyframeReached:connect(onkeyframereached)
+Trot.KeyframeReached:connect(onkeyframereached)
+Run.KeyframeReached:connect(onkeyframereached)
+RunStart.KeyframeReached:connect(onkeyframereached)
+Stot.KeyframeReached:connect(onkeyframereached)
+GrabMed.KeyframeReached:connect(onkeyframereached)
+GrabLow.KeyframeReached:connect(onkeyframereached)
+GrabLeapMed.KeyframeReached:connect(onkeyframereached)
+GrabLeapLow.KeyframeReached:connect(onkeyframereached)
+Lay.KeyframeReached:connect(onkeyframereached)
+Sit.KeyframeReached:connect(onkeyframereached)
+QuickTurnLeft.KeyframeReached:connect(onkeyframereached)
+QuickTurnRight.KeyframeReached:connect(onkeyframereached)
+DodgeLeft.KeyframeReached:connect(onkeyframereached)
+DodgeRight.KeyframeReached:connect(onkeyframereached)
+Primary.KeyframeReached:connect(onkeyframereached)
+Secondary.KeyframeReached:connect(onkeyframereached)
+function Deplete()
+    --[[
+    Upvalues:
+        [1] = u42
+        [2] = u41
+        [3] = u34
+        [4] = u2
+        [5] = u1
+        [6] = u23
+        [7] = u24
+        [8] = u16
+        [9] = u3
+        [10] = u28
+        [11] = u75
+    --]]
+    wait(1)
+    local v303 = math.random(1, 4)
+    local v304 = math.random(1, 2)
+    local v305 = math.random(1, 20)
+    if u42 == "Neutral" then
+        if v303 == 1 and (ShakeHead.IsPlaying == false and (EarFlickLeft.IsPlaying == false and bv.Velocity.magnitude < TrotSpeed)) then
+            EarFlickLeft:Play()
+        elseif v303 == 2 and (ShakeHead.IsPlaying == false and (EarFlickRight.IsPlaying == false and bv.Velocity.magnitude < TrotSpeed)) then
+            EarFlickRight:Play()
+        end
+    end
+    if (u42 == "Agonistic" or u42 == "Warning") and (v304 == 1 and (TailFlick.IsPlaying == false and bv.Velocity.magnitude < TrotSpeed)) then
+        if u41 == false and u34 == false then
+            TailFlick:Play()
+        elseif u41 == true or u34 == true then
+            TailFlick2:Play()
+        end
+    end
+    if u42 == "Warning" and (v304 == 1 and (bv.Velocity.magnitude < TrotSpeed and u2.Jaw.Growl.Playing == false)) then
+        u2.Jaw.Growl:Play()
+    end
+    if v305 == 1 and (ShakeHead.IsPlaying == false and (bv.Velocity.magnitude < TrotSpeed and Drinking.IsPlaying == false)) then
+        ShakeHead:Play()
+    end
+    if u1.PlayerGui:FindFirstChild("GameGui") ~= nil then
+        if u23 == true then
+            if Time > 0 and (u1.PlayerGui:FindFirstChild("GameGui").Choose.Visible == false and u24 == false) then
+                Time = Time - 1
+            end
+            u1.PlayerGui:FindFirstChild("GameGui").Stats.Respawn.Text = "Can Respawn In: " .. Time
+            if Time < 1 and u24 == false then
+                Time = 0
+                u24 = true
+                u1.PlayerGui:FindFirstChild("GameGui").Choose.Visible = true
+                u1.PlayerGui:FindFirstChild("GameGui").Stats.Respawn.Visible = false
+            end
+        end
+        if hrp.CFrame.lookVector:Dot(hrp.Velocity) > TrotSpeed + 2 and (hrp.CFrame.lookVector:Dot(hrp.Velocity) < JogSpeed + 2 and Stam > 0) then
+            Stam = Stam - StamLoss
+            if Stam <= 0 then
+                u16 = false
+            end
+        elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) > JogSpeed + 2 and Stam > 0 then
+            Stam = Stam - StamLossSprinting
+            if Stam <= 0 then
+                u16 = false
+            end
+        elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) < WalkSpeed + 2 and (Stam < MaxStam and (u3:GetAttribute("Pounced") == false and u28 == false)) then
+            if u34 == false then
+                Stam = Stam + StamRegen
+            else
+                Stam = Stam + StamRegenResting
+            end
+        elseif u3:GetAttribute("Pounced") == true and Stam > 0 then
+            if u3:GetAttribute("Gender") == "Male" then
+                if hrp.Velocity.Magnitude > WalkSpeed + 2 then
+                    Stam = Stam - MaxStam * 0.005
+                end
+            elseif u3:GetAttribute("Gender") == "Female" and hrp.Velocity.Magnitude > WalkSpeed + 2 then
+                Stam = Stam - MaxStam * 0.005
+            end
+        end
+        if Stam < 1 and (u3:GetAttribute("Pounced") == true and u75 == true) then
+            game.ReplicatedStorage.RemoteEvent4:FireServer()
+        end
+        if Ox < MaxOx and Ox < MaxOx then
+            local v306 = Ox + 2
+            if v306 < MaxOx then
+                Ox = Ox + MaxOx / 10
+            elseif MaxOx <= v306 then
+                Ox = MaxOx
+            end
+        end
+        if hrp:FindFirstChild("Connection") ~= nil and (hrp.Connection.Part1 ~= nil and hrp.Connection.Part1.Parent ~= nil) then
+            local v307 = hrp.Connection.Part1.Parent:FindFirstChildOfClass("Humanoid")
+            if v307 and v307:GetAttribute("Species") == "Hyena" then
+                if u3:GetAttribute("Gender") == "Male" then
+                    Stam = Stam - MaxStam * 0.01
+                    return
+                end
+                if u3:GetAttribute("Gender") == "Female" then
+                    Stam = Stam - MaxStam * 0.01
+                end
+            end
+        end
+    end
+end
+function Deplete2()
+    --[[
+    Upvalues:
+        [1] = u21
+        [2] = u3
+    --]]
+    wait(60)
+    if u21 == false then
+        if Hunger > 0 and Eating.IsPlaying == false then
+            if Hunger > 0 then
+                -- Hunger = Hunger - HungerRegen / 2
+            end
+            if Hunger <= 0 then
+                Hunger = 0
+            end
+        end
+        if Hunger == 0 and u21 == false then
+            game.ReplicatedStorage.RemoteEvent2:FireServer(Hunger, Thirst)
+        end
+        if Thirst > 0 and Drinking.IsPlaying == false then
+            if Thirst > 0 then
+                -- Thirst = Thirst - ThirstRegen
+            end
+            if Thirst < 1 then
+                Thirst = 0
+            end
+        end
+        if Thirst == 0 and u21 == false then
+            game.ReplicatedStorage.RemoteEvent2:FireServer(Hunger, Thirst)
+        end
+        if (Thirst > 0 and Hunger > 0 or Thirst == 0 and Hunger == 0) and u3.Health < u3.MaxHealth then
+            game.ReplicatedStorage.RemoteEvent2:FireServer(Hunger, Thirst)
+        end
+    end
+end
+local v308 = coroutine.create(function() --[[Anonymous function at line 3236]]
+    while true do
+        wait()
+        Deplete()
+    end
+end)
+coroutine.resume(v308)
+local v309 = coroutine.create(function() --[[Anonymous function at line 3249]]
+    while true do
+        wait()
+        Deplete2()
+    end
+end)
+coroutine.resume(v309)
+NeckPart = v8.Cframes.NeckPart.Value
+Body1 = v8.Cframes.Body1.Value
+Body2 = v8.Cframes.Body2.Value
+Body3 = v8.Cframes.Body3.Value
+local u310 = hrp["Root Hip"].C0
+local u311 = Body1.Spine.C0
+local u312 = Body2.Spine.C0
+local u313 = Body3.Spine.C0
+local u314 = u2.Hip.Tail01Joint.C0
+local u315 = NeckPart.Neck.C0
+function Straight()
+    --[[
+    Upvalues:
+        [1] = u28
+        [2] = u310
+        [3] = u311
+        [4] = u312
+        [5] = u313
+        [6] = u2
+        [7] = u314
+        [8] = u315
+        [9] = u41
+        [10] = u34
+    --]]
+    if IdleWalkRight.IsPlaying == true then
+        IdleWalkRight:Stop(0.4)
+    end
+    if IdleWalkLeft.IsPlaying == true then
+        IdleWalkLeft:Stop(0.4)
+    end
+    if hrp.CFrame.lookVector:Dot(hrp.Velocity) > JogSpeed + 2 and u28 == false then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.1)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.1)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.1)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.1)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.1)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.1)
+    elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) > TrotSpeed + 2 and (hrp.CFrame.lookVector:Dot(hrp.Velocity) < JogSpeed + 2 and u28 == false) then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.06)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.06)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.06)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+    elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) > WalkSpeed + 2 and (hrp.CFrame.lookVector:Dot(hrp.Velocity) < TrotSpeed + 2 and u28 == false) then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.06)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.06)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.06)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+    elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) > 0.1 and (hrp.CFrame.lookVector:Dot(hrp.Velocity) < WalkSpeed + 2 and u28 == false) then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.04)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.04)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.04)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+    elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) < -0.1 and u28 == false then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.04)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.04)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.04)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+    elseif u28 == true then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.04)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.04)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.04)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+    end
+    if u41 == true or u34 == true then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.04)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.04)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.04)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+    end
+end
+function Left()
+    --[[
+    Upvalues:
+        [1] = u28
+        [2] = u311
+        [3] = u312
+        [4] = u313
+        [5] = u2
+        [6] = u314
+        [7] = u315
+        [8] = u310
+        [9] = u14
+        [10] = u41
+        [11] = u34
+    --]]
+    if hrp.CFrame.lookVector:Dot(hrp.Velocity) > JogSpeed + 2 and u28 == false then
+        local v316 = hrp["Root Hip"]
+        local v317 = hrp["Root Hip"].C0
+        local v318 = CFrame.Angles
+        local v319 = SprintRot
+        v316.C0 = v317:lerp(v318(0, 0, (math.rad(v319))) * CFrame.new(-SprintPos.X, SprintPos.Y, 0), 0.08)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.08)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.08)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.08)
+        local v320 = u2.Hip.Tail01Joint
+        local v321 = u2.Hip.Tail01Joint.C0
+        local v322 = u314
+        local v323 = CFrame.Angles
+        local v324 = -TailRot.X
+        local v325 = math.rad(v324)
+        local v326 = TailRot.Y
+        v320.C0 = v321:lerp(v322 * v323(v325, math.rad(v326), 0), 0.08)
+        local v327 = NeckPart.Neck
+        local v328 = NeckPart.Neck.C0
+        local v329 = u315
+        local v330 = CFrame.Angles
+        local v331 = -SprintRot
+        v327.C0 = v328:lerp(v329 * v330(0, 0, (math.rad(v331))), 0.08)
+        return
+    elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) > TrotSpeed + 2 and (hrp.CFrame.lookVector:Dot(hrp.Velocity) < JogSpeed + 2 and u28 == false) then
+        local v332 = hrp["Root Hip"]
+        local v333 = hrp["Root Hip"].C0
+        local v334 = CFrame.Angles
+        local v335 = JogRot
+        v332.C0 = v333:lerp(v334(0, 0, (math.rad(v335))) * CFrame.new(-JogPos.X, JogPos.Y, 0), 0.06)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.06)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.06)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.06)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        local v336 = NeckPart.Neck
+        local v337 = NeckPart.Neck.C0
+        local v338 = u315
+        local v339 = CFrame.Angles
+        local v340 = -JogRot
+        v336.C0 = v337:lerp(v338 * v339(0, 0, (math.rad(v340))), 0.06)
+        return
+    elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) > WalkSpeed + 2 and (hrp.CFrame.lookVector:Dot(hrp.Velocity) < TrotSpeed + 2 and u28 == false) then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        local v341 = Body1.Spine
+        local v342 = Body1.Spine.C0
+        local v343 = u311
+        local v344 = CFrame.Angles
+        local v345 = -TrotRot
+        v341.C0 = v342:lerp(v343 * v344(0, math.rad(v345), 0), 0.06)
+        local v346 = Body2.Spine
+        local v347 = Body2.Spine.C0
+        local v348 = u312
+        local v349 = CFrame.Angles
+        local v350 = -TrotRot
+        v346.C0 = v347:lerp(v348 * v349(0, math.rad(v350), 0), 0.06)
+        local v351 = Body3.Spine
+        local v352 = Body3.Spine.C0
+        local v353 = u313
+        local v354 = CFrame.Angles
+        local v355 = -TrotRot
+        v351.C0 = v352:lerp(v353 * v354(0, math.rad(v355), 0), 0.06)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+        return
+    elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) > 0.1 and (hrp.CFrame.lookVector:Dot(hrp.Velocity) < WalkSpeed + 2 and u28 == false) then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        local v356 = Body1.Spine
+        local v357 = Body1.Spine.C0
+        local v358 = u311
+        local v359 = CFrame.Angles
+        local v360 = -WalkRot
+        v356.C0 = v357:lerp(v358 * v359(0, math.rad(v360), 0), 0.04)
+        local v361 = Body2.Spine
+        local v362 = Body2.Spine.C0
+        local v363 = u312
+        local v364 = CFrame.Angles
+        local v365 = -WalkRot
+        v361.C0 = v362:lerp(v363 * v364(0, math.rad(v365), 0), 0.04)
+        local v366 = Body3.Spine
+        local v367 = Body3.Spine.C0
+        local v368 = u313
+        local v369 = CFrame.Angles
+        local v370 = -WalkRot
+        v366.C0 = v367:lerp(v368 * v369(0, math.rad(v370), 0), 0.04)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+    elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) < 0.1 and u28 == false then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.04)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.04)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.04)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+        if hrp.CFrame.lookVector:Dot(hrp.Velocity) > -0.1 and (u14 == false and (u41 == false and (u34 == false and IdleWalkLeft.IsPlaying == false))) then
+            local v371 = IdleWalkRight.TimePosition
+            IdleWalkLeft:Play(0.4)
+            IdleWalkLeft.TimePosition = v371
+            IdleWalkRight:Stop(0.4)
+            return
+        end
+    elseif u28 == true then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.04)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.04)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.04)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+    end
+end
+function Right()
+    --[[
+    Upvalues:
+        [1] = u28
+        [2] = u311
+        [3] = u312
+        [4] = u313
+        [5] = u2
+        [6] = u314
+        [7] = u315
+        [8] = u310
+        [9] = u14
+        [10] = u41
+        [11] = u34
+    --]]
+    if hrp.CFrame.lookVector:Dot(hrp.Velocity) > JogSpeed + 2 and u28 == false then
+        local v372 = hrp["Root Hip"]
+        local v373 = hrp["Root Hip"].C0
+        local v374 = CFrame.Angles
+        local v375 = -SprintRot
+        v372.C0 = v373:lerp(v374(0, 0, (math.rad(v375))) * CFrame.new(SprintPos.X, SprintPos.Y, 0), 0.08)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.08)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.08)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.08)
+        local v376 = u2.Hip.Tail01Joint
+        local v377 = u2.Hip.Tail01Joint.C0
+        local v378 = u314
+        local v379 = CFrame.Angles
+        local v380 = -TailRot.X
+        local v381 = math.rad(v380)
+        local v382 = -TailRot.Y
+        v376.C0 = v377:lerp(v378 * v379(v381, math.rad(v382), 0), 0.08)
+        local v383 = NeckPart.Neck
+        local v384 = NeckPart.Neck.C0
+        local v385 = u315
+        local v386 = CFrame.Angles
+        local v387 = SprintRot
+        v383.C0 = v384:lerp(v385 * v386(0, 0, (math.rad(v387))), 0.08)
+        return
+    elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) > TrotSpeed + 2 and (hrp.CFrame.lookVector:Dot(hrp.Velocity) < JogSpeed + 2 and u28 == false) then
+        local v388 = hrp["Root Hip"]
+        local v389 = hrp["Root Hip"].C0
+        local v390 = CFrame.Angles
+        local v391 = -JogRot
+        v388.C0 = v389:lerp(v390(0, 0, (math.rad(v391))) * CFrame.new(JogPos.X, JogPos.Y, 0), 0.06)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.06)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.06)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.06)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        local v392 = NeckPart.Neck
+        local v393 = NeckPart.Neck.C0
+        local v394 = u315
+        local v395 = CFrame.Angles
+        local v396 = JogRot
+        v392.C0 = v393:lerp(v394 * v395(0, 0, (math.rad(v396))), 0.06)
+        return
+    elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) > WalkSpeed + 2 and (hrp.CFrame.lookVector:Dot(hrp.Velocity) < TrotSpeed + 2 and u28 == false) then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        local v397 = Body1.Spine
+        local v398 = Body1.Spine.C0
+        local v399 = u311
+        local v400 = CFrame.Angles
+        local v401 = TrotRot
+        v397.C0 = v398:lerp(v399 * v400(0, math.rad(v401), 0), 0.06)
+        local v402 = Body2.Spine
+        local v403 = Body2.Spine.C0
+        local v404 = u312
+        local v405 = CFrame.Angles
+        local v406 = TrotRot
+        v402.C0 = v403:lerp(v404 * v405(0, math.rad(v406), 0), 0.06)
+        local v407 = Body3.Spine
+        local v408 = Body3.Spine.C0
+        local v409 = u313
+        local v410 = CFrame.Angles
+        local v411 = TrotRot
+        v407.C0 = v408:lerp(v409 * v410(0, math.rad(v411), 0), 0.06)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+        return
+    elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) > 0.1 and (hrp.CFrame.lookVector:Dot(hrp.Velocity) < WalkSpeed + 2 and u28 == false) then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        local v412 = Body1.Spine
+        local v413 = Body1.Spine.C0
+        local v414 = u311
+        local v415 = CFrame.Angles
+        local v416 = WalkRot
+        v412.C0 = v413:lerp(v414 * v415(0, math.rad(v416), 0), 0.04)
+        local v417 = Body2.Spine
+        local v418 = Body2.Spine.C0
+        local v419 = u312
+        local v420 = CFrame.Angles
+        local v421 = WalkRot
+        v417.C0 = v418:lerp(v419 * v420(0, math.rad(v421), 0), 0.04)
+        local v422 = Body3.Spine
+        local v423 = Body3.Spine.C0
+        local v424 = u313
+        local v425 = CFrame.Angles
+        local v426 = WalkRot
+        v422.C0 = v423:lerp(v424 * v425(0, math.rad(v426), 0), 0.04)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+    elseif hrp.CFrame.lookVector:Dot(hrp.Velocity) < 0.1 and u28 == false then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.04)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.04)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.04)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+        if hrp.CFrame.lookVector:Dot(hrp.Velocity) > -0.1 and (u14 == false and (u41 == false and (u34 == false and IdleWalkRight.IsPlaying == false))) then
+            local v427 = IdleWalkLeft.TimePosition
+            IdleWalkRight:Play(0.4)
+            IdleWalkRight.TimePosition = v427
+            IdleWalkLeft:Stop(0.4)
+            return
+        end
+    elseif u28 == true then
+        hrp["Root Hip"].C0 = hrp["Root Hip"].C0:lerp(u310, 0.06)
+        Body1.Spine.C0 = Body1.Spine.C0:lerp(u311, 0.04)
+        Body2.Spine.C0 = Body2.Spine.C0:lerp(u312, 0.04)
+        Body3.Spine.C0 = Body3.Spine.C0:lerp(u313, 0.04)
+        u2.Hip.Tail01Joint.C0 = u2.Hip.Tail01Joint.C0:lerp(u314, 0.06)
+        NeckPart.Neck.C0 = NeckPart.Neck.C0:lerp(u315, 0.06)
+    end
+end
+v6.Stepped:connect(function() --[[Anonymous function at line 3454]]
+    --[[
+    Upvalues:
+        [1] = u3
+        [2] = u43
+        [3] = u17
+        [4] = u23
+        [5] = u21
+        [6] = u44
+        [7] = u16
+        [8] = u15
+        [9] = u14
+        [10] = u2
+        [11] = u28
+        [12] = u30
+        [13] = u19
+        [14] = u29
+        [15] = u31
+        [16] = u32
+        [17] = u26
+        [18] = u27
+        [19] = u25
+        [20] = u9
+        [21] = u10
+    --]]
+    Stam = MaxStam
+    Hunger = MaxHunger
+    Thirst = MaxThirst
+    u3.Health = u3.MaxHealth
+
+    if u3:GetAttribute("Pounced") then
+        u3:SetAttribute("Pounced", false)
+    end
+    if u3:GetAttribute("IsBeingPounced") then
+        u3:SetAttribute("IsBeingPounced", false)
+    end
+
+    u3:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
+    u3:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
+    u3:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+    u3:SetStateEnabled(Enum.HumanoidStateType.Swimming, false)
+    if (CrouchLay.WeightCurrent ~= 0 or (u3:GetAttribute("Pounced") ~= false or (Laying.WeightCurrent ~= 0 or (Lay.WeightCurrent ~= 0 or GetUp.WeightCurrent ~= 0)))) and CrouchLay.WeightCurrent <= 0 then
+        local _ = u3:GetAttribute("Pounced") == true
+    end
+    if u43 then
+        RunGui2(u43.Stats.HungerFrame.HungerBar, Hunger / MaxHunger)
+        RunGui2(u43.Stats.ThirstFrame.ThirstBar, Thirst / MaxThirst)
+        RunGui(u43.Stats.StaminaFrame.StaminaBar, Stam / MaxStam)
+        RunGui(u43.Stats.OxygenFrame.OxygenBar, Ox / MaxOx)
+        u43.Stats.AttackGraphic.Visible = false
+        if u17 == true then
+            u43.Stats.SprintGraphic.Visible = true
+        elseif u17 == false then
+            u43.Stats.SprintGraphic.Visible = false
+        end
+    end
+    if u23 == true or u21 == true then
+        u44.MouseIconEnabled = true
+        u44.MouseBehavior = Enum.MouseBehavior.Default
+    end
+    if u16 == true then
+        TurnRadiusDodge = 500
+        if u17 == true then
+            u3.WalkSpeed = SprintSpeed
+        elseif u17 == false then
+            u3.WalkSpeed = JogSpeed
+        end
+    end
+    if u16 == false and (u15 == false and u14 == false) then
+        TurnRadiusDodge = 425
+        u3.WalkSpeed = WalkSpeed
+    end
+    if u15 == true and u16 == false then
+        TurnRadiusDodge = 450
+        if u14 == false then
+            u3.WalkSpeed = TrotSpeed
+        elseif u14 == true then
+            u3.WalkSpeed = CrouchTrotSpeed
+        end
+    end
+    if u14 == true and u16 == false then
+        TurnRadiusDodge = 425
+        if u15 == false then
+            if u17 == false then
+                u3.WalkSpeed = CrouchWalkSlowSpeed
+            elseif u17 == true then
+                u3.WalkSpeed = CrouchWalkSpeed
+            end
+        elseif u15 == true then
+            u3.WalkSpeed = CrouchTrotSpeed
+        end
+    end
+    if hrp and u2:FindFirstChild("Torso") then
+        if totalspeed ~= nil then
+            local v428 = 1
+            local v429
+            if Vector2.new(hrp.Velocity.X, hrp.Velocity.Z).magnitude > 0 then
+                v429 = Vector2.new(hrp.Velocity.X, hrp.Velocity.Z).unit
+            else
+                v429 = Vector2.new(0, 0)
+            end
+            local v430 = (v429 - Vector2.new(hrp.CFrame.lookVector.X, hrp.CFrame.lookVector.Z).unit).magnitude + 0.5
+            local v431 = math.floor(v430)
+            local v432 = v431 == 0 and 1 or (v431 == 2 and -1 or v428)
+            local v433 = totalspeed / WalkAnimSpeed
+            local v434 = totalspeed / TrotAnimSpeed
+            local v435 = totalspeed / JogAnimSpeed
+            local v436 = totalspeed / SprintAnimSpeed
+            if u28 == false then
+                Walk:AdjustSpeed(v433 * v432)
+                CrouchWalk:AdjustSpeed(v433 * v432)
+                Trot:AdjustSpeed(v434 * v432)
+                CrouchTrot:AdjustSpeed(v434 * v432)
+                Jog:AdjustSpeed(v435 * v432)
+                Run:AdjustSpeed(v436 * v432)
+                RunStart:AdjustSpeed(v435 * v432)
+            elseif u28 == true then
+                Walk:AdjustSpeed(0)
+                CrouchWalk:AdjustSpeed(0)
+                Trot:AdjustSpeed(0)
+                Jog:AdjustSpeed(0)
+                Run:AdjustSpeed(0)
+            end
+        end
+        if u28 == false and u3.Sit == false then
+            if u30 == true and u19 == true then
+                if hrp.CFrame.lookVector:Dot(bv.Velocity) < u3.WalkSpeed then
+                    local v437 = hrp.CFrame.lookVector:Dot(bv.Velocity + hrp.CFrame.lookVector * 2)
+                    bv.Velocity = hrp.CFrame.lookVector * v437
+                    local v438 = bv
+                    local v439 = MaxValue
+                    local v440 = MaxValue
+                    v438.MaxForce = Vector3.new(v439, 0, v440)
+                elseif hrp.CFrame.lookVector:Dot(bv.Velocity) > u3.WalkSpeed then
+                    local v441 = hrp.CFrame.lookVector:Dot(bv.Velocity - hrp.CFrame.lookVector * 0.5)
+                    bv.Velocity = hrp.CFrame.lookVector * v441
+                    local v442 = bv
+                    local v443 = MaxValue
+                    local v444 = MaxValue
+                    v442.MaxForce = Vector3.new(v443, 0, v444)
+                end
+            end
+            if u29 == true and u19 == true then
+                if hrp.CFrame.lookVector:Dot(bv.Velocity) < -WalkSpeed then
+                    local v445 = hrp.CFrame.lookVector:Dot(bv.Velocity + hrp.CFrame.lookVector * 0.5)
+                    bv.Velocity = hrp.CFrame.lookVector * v445
+                    local v446 = bv
+                    local v447 = MaxValue
+                    local v448 = MaxValue
+                    v446.MaxForce = Vector3.new(v447, 0, v448)
+                elseif hrp.CFrame.lookVector:Dot(bv.Velocity) > -WalkSpeed then
+                    local v449 = hrp.CFrame.lookVector:Dot(bv.Velocity - hrp.CFrame.lookVector * 0.5)
+                    bv.Velocity = hrp.CFrame.lookVector * v449
+                    local v450 = bv
+                    local v451 = MaxValue
+                    local v452 = MaxValue
+                    v450.MaxForce = Vector3.new(v451, 0, v452)
+                end
+            end
+            if u30 == false and u29 == false or u19 == false then
+                if hrp.CFrame.lookVector:Dot(bv.Velocity) < 0.1 then
+                    if u3:GetAttribute("Pounced") == false then
+                        bv.Velocity = Vector3.new(0, 0, 0)
+                        local v453 = bv
+                        local v454 = MaxValue
+                        local v455 = MaxValue
+                        v453.MaxForce = Vector3.new(v454, 0, v455)
+                    elseif u3:GetAttribute("Pounced") == true then
+                        bv.MaxForce = Vector3.new(0, 0, 0)
+                    end
+                elseif hrp.CFrame.lookVector:Dot(bv.Velocity) > 0.1 then
+                    local v456 = hrp.CFrame.lookVector:Dot(bv.Velocity - hrp.CFrame.lookVector * 0.5)
+                    bv.Velocity = hrp.CFrame.lookVector * v456
+                    local v457 = bv
+                    local v458 = MaxValue
+                    local v459 = MaxValue
+                    v457.MaxForce = Vector3.new(v458, 0, v459)
+                end
+            end
+        end
+        if u31 == true and (u19 == true and u28 == false) then
+            if bv.Velocity == Vector3.new(0, 0, 0) and u14 == false then
+                local v460 = bav
+                local v461 = hrp.CFrame.upVector
+                local v462 = -TurnRadiusIdle
+                v460.AngularVelocity = v461 * math.rad(v462)
+            end
+            if bv.Velocity.magnitude < TrotSpeed and (bv.Velocity ~= Vector3.new(0, 0, 0) and RunStart.IsPlaying == false) then
+                if u14 == false then
+                    local v463 = bav
+                    local v464 = hrp.CFrame.upVector
+                    local v465 = -TurnRadiusWalk
+                    v463.AngularVelocity = v464 * math.rad(v465)
+                elseif u14 == true then
+                    local v466 = bav
+                    local v467 = hrp.CFrame.upVector
+                    local v468 = -TurnRadiusCrouch
+                    v466.AngularVelocity = v467 * math.rad(v468)
+                end
+            end
+            if bv.Velocity.magnitude > TrotSpeed + 2 or RunStart.IsPlaying == true then
+                if u29 == false then
+                    local v469 = bav
+                    local v470 = hrp.CFrame.upVector
+                    local v471 = -TurnRadiusSprint
+                    v469.AngularVelocity = v470 * math.rad(v471)
+                end
+                if u29 == true then
+                    if u14 == false then
+                        local v472 = bav
+                        local v473 = hrp.CFrame.upVector
+                        local v474 = -TurnRadiusWalk
+                        v472.AngularVelocity = v473 * math.rad(v474)
+                    elseif u14 == true then
+                        local v475 = bav
+                        local v476 = hrp.CFrame.upVector
+                        local v477 = -TurnRadiusCrouch
+                        v475.AngularVelocity = v476 * math.rad(v477)
+                    end
+                end
+            end
+            if bv.Velocity.magnitude > WalkSpeed + 2 and (bv.Velocity.magnitude < JogSpeed and RunStart.IsPlaying == false) then
+                if u29 == false then
+                    local v478 = bav
+                    local v479 = hrp.CFrame.upVector
+                    local v480 = -TurnRadiusTrot
+                    v478.AngularVelocity = v479 * math.rad(v480)
+                end
+                if u29 == true then
+                    if u14 == false then
+                        local v481 = bav
+                        local v482 = hrp.CFrame.upVector
+                        local v483 = -TurnRadiusWalk
+                        v481.AngularVelocity = v482 * math.rad(v483)
+                    elseif u14 == true then
+                        local v484 = bav
+                        local v485 = hrp.CFrame.upVector
+                        local v486 = -TurnRadiusCrouch
+                        v484.AngularVelocity = v485 * math.rad(v486)
+                    end
+                end
+            end
+        end
+        if u32 == true and (u19 == true and u28 == false) then
+            if bv.Velocity == Vector3.new(0, 0, 0) and (u14 == false and RunStart.IsPlaying == false) then
+                local v487 = bav
+                local v488 = hrp.CFrame.upVector
+                local v489 = TurnRadiusIdle
+                v487.AngularVelocity = v488 * math.rad(v489)
+            end
+            if bv.Velocity.magnitude < TrotSpeed and bv.Velocity ~= Vector3.new(0, 0, 0) then
+                if u14 == false then
+                    local v490 = bav
+                    local v491 = hrp.CFrame.upVector
+                    local v492 = TurnRadiusWalk
+                    v490.AngularVelocity = v491 * math.rad(v492)
+                elseif u14 == true then
+                    local v493 = bav
+                    local v494 = hrp.CFrame.upVector
+                    local v495 = TurnRadiusCrouch
+                    v493.AngularVelocity = v494 * math.rad(v495)
+                end
+            end
+            if bv.Velocity.magnitude > TrotSpeed + 2 or RunStart.IsPlaying == true then
+                if u29 == false then
+                    local v496 = bav
+                    local v497 = hrp.CFrame.upVector
+                    local v498 = TurnRadiusSprint
+                    v496.AngularVelocity = v497 * math.rad(v498)
+                end
+                if u29 == true then
+                    if u14 == false then
+                        local v499 = bav
+                        local v500 = hrp.CFrame.upVector
+                        local v501 = TurnRadiusWalk
+                        v499.AngularVelocity = v500 * math.rad(v501)
+                    elseif u14 == true then
+                        local v502 = bav
+                        local v503 = hrp.CFrame.upVector
+                        local v504 = TurnRadiusCrouch
+                        v502.AngularVelocity = v503 * math.rad(v504)
+                    end
+                end
+            end
+            if bv.Velocity.magnitude > WalkSpeed + 2 and (bv.Velocity.magnitude < JogSpeed and RunStart.IsPlaying == false) then
+                if u29 == false then
+                    local v505 = bav
+                    local v506 = hrp.CFrame.upVector
+                    local v507 = TurnRadiusTrot
+                    v505.AngularVelocity = v506 * math.rad(v507)
+                end
+                if u29 == true then
+                    if u14 == false then
+                        local v508 = bav
+                        local v509 = hrp.CFrame.upVector
+                        local v510 = TurnRadiusWalk
+                        v508.AngularVelocity = v509 * math.rad(v510)
+                    elseif u14 == true then
+                        local v511 = bav
+                        local v512 = hrp.CFrame.upVector
+                        local v513 = TurnRadiusCrouch
+                        v511.AngularVelocity = v512 * math.rad(v513)
+                    end
+                end
+            end
+        end
+        if u31 == false and (u32 == false and u28 == false) or u19 == false then
+            bav.AngularVelocity = Vector3.new(0, 0, 0)
+        end
+        if u3:GetAttribute("Pounced") == false and (u28 == false and u3.Sit == false) then
+            local v514 = bav
+            local v515 = MaxValue
+            v514.MaxTorque = Vector3.new(0, v515, 0)
+        elseif u3:GetAttribute("Pounced") == true and u28 == false or u3.Sit == true then
+            bav.MaxTorque = Vector3.new(0, 0, 0)
+        end
+        if u3.Sit == false then
+            if u31 == true and u29 == false then
+                Right()
+                u26 = false
+                u27 = true
+                u25 = false
+            else
+                local _ = u31 == true
+            end
+            if u32 == false and (u31 == false and u29 == false) or u29 == true then
+                Straight()
+                u26 = false
+                u27 = false
+                u25 = true
+            elseif u32 == false then
+                local _ = u31 == false
+            end
+            if u32 == true and u29 == false then
+                Left()
+                u26 = true
+                u27 = false
+                u25 = false
+            else
+                local _ = u32 == true
+            end
+        end
+        if u2.HumanoidRootPart.RotVelocity.Y < -0.2 and (u29 == false and (u30 == false and u32 == false)) then
+            local _ = u31 == false
+        end
+        if u2.HumanoidRootPart.RotVelocity.Y > -0.2 and (u2.HumanoidRootPart.RotVelocity.Y < 0.2 and (u29 == false and (u30 == false and u32 == false))) then
+            local _ = u31 == false
+        end
+        if u2.HumanoidRootPart.RotVelocity.Y > 0.2 and (u29 == false and (u30 == false and u32 == false)) then
+            local _ = u31 == false
+        end
+    end
+    if IdleWalkRight.IsPlaying == true then
+        IdleWalkRight:AdjustSpeed(hrp.RotVelocity.Y / -1.6)
+    end
+    if IdleWalkLeft.IsPlaying == true then
+        IdleWalkLeft:AdjustSpeed(hrp.RotVelocity.Y / -1.6)
+    end
+    if Stam > MaxStam then
+        Stam = MaxStam
+    end
+    if Ox > MaxOx then
+        Ox = MaxOx
+    end
+    if Stam < 0 then
+        Stam = 0
+    end
+    if Ox < 0 then
+        Ox = 0
+    end
+    if Hunger > MaxHunger then
+        Hunger = MaxHunger
+    end
+    if Hunger < 0 then
+        Hunger = 0
+    end
+    if Thirst > MaxThirst then
+        Thirst = MaxThirst
+    end
+    if Thirst < 0 then
+        Thirst = 0
+    end
+    SprintSpeed = TopSprintSpeed - Multiplier * (MaxStam - Stam)
+    if SprintSpeed < JogSpeed + 2 then
+        u17 = false
+    elseif SprintSpeed > JogSpeed + 2 then
+        JogSpeed = TopJogSpeed
+    end
+    u9 = hrp.Position
+    if Sitting.IsPlaying == true or (Sit.IsPlaying == true or (GetUp.IsPlaying == true or u3:GetAttribute("Pounced") == true)) then
+        u19 = false
+    end
+    if DodgeLeft.IsPlaying == false and (DodgeRight.IsPlaying == false and (GrabLeapLow.IsPlaying == false and (GrabLeapMed.IsPlaying == false and (GrabMed.IsPlaying == false and (QuickTurnLeft.IsPlaying == false and (QuickTurnRight.IsPlaying == false and (Primary.IsPlaying == false and Secondary.IsPlaying == false))))))) then
+        u28 = false
+    end
+    if hrp and u10 == true then
+        for _, v516 in pairs(hrp:GetJoints()) do
+            if v516:IsA("AlignPosition") and v516.ReactionForceEnabled == false then
+                v516.ReactionForceEnabled = true
+            end
+        end
+    end
+    local v517 = hrp:FindFirstChild("Connection") ~= nil and hrp.Connection.Part1 ~= nil and (hrp.Connection.Part1.Parent ~= nil and hrp.Connection.Part1.Parent:FindFirstChildOfClass("Humanoid"))
+    if v517 then
+        if v517:GetAttribute("Species") == "Giraffe" then
+            if v517:GetAttribute("Downed") == true and hrp.Connection.Part1.Name ~= "HumanoidRootPart" then
+                print("Dodge Collapse")
+                game.ReplicatedStorage.RemoteEvent4:FireServer()
+            end
+            for _, v518 in pairs(hrp.Connection.Part1:GetConnectedParts()) do
+                if v518.Name == "HumanoidRootPart" and (v518 ~= hrp and (v518:FindFirstChild("Connection") ~= nil and v518.Connection.Part1 == hrp.Connection.Part1)) then
+                    print("Multiple lions on same spot.")
+                    game.ReplicatedStorage.RemoteEvent4:FireServer()
+                end
+            end
+            return
+        end
+        if v517:GetAttribute("Species") == "Buffalo" then
+            if v517:GetAttribute("Downed") == true and hrp.Connection.Part1.Name ~= "HumanoidRootPart" then
+                print("Dodge Collapse")
+                game.ReplicatedStorage.RemoteEvent4:FireServer()
+            end
+            for _, v519 in pairs(hrp.Connection.Part1:GetConnectedParts()) do
+                if v519.Name == "HumanoidRootPart" and (v519 ~= hrp and (v519:FindFirstChild("Connection") ~= nil and v519.Connection.Part1 == hrp.Connection.Part1)) then
+                    print("Multiple lions on same spot.")
+                    game.ReplicatedStorage.RemoteEvent4:FireServer()
+                end
+            end
+        end
+    end
+end)
