@@ -1,0 +1,1213 @@
+--[=[
+ d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
+]=]
+
+-- Instances: 51 | Scripts: 26 | Modules: 0 | Tags: 0
+local G2L = {};
+
+-- StarterGui.ScreenGui
+G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
+G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
+G2L["1"]["ResetOnSpawn"] = false;
+
+
+-- StarterGui.ScreenGui.Frame
+G2L["2"] = Instance.new("Frame", G2L["1"]);
+G2L["2"]["BorderSizePixel"] = 0;
+G2L["2"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2"]["Size"] = UDim2.new(0, 551, 0, 320);
+G2L["2"]["Position"] = UDim2.new(0.25219, 0, 0.18776, 0);
+G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+
+
+-- StarterGui.ScreenGui.Frame.drag
+G2L["3"] = Instance.new("LocalScript", G2L["2"]);
+G2L["3"]["Name"] = [[drag]];
+
+
+-- StarterGui.ScreenGui.Frame.ToggleScript
+G2L["4"] = Instance.new("LocalScript", G2L["2"]);
+G2L["4"]["Name"] = [[ToggleScript]];
+
+
+-- StarterGui.ScreenGui.Frame.UIStroke
+G2L["5"] = Instance.new("UIStroke", G2L["2"]);
+G2L["5"]["LineJoinMode"] = Enum.LineJoinMode.Miter;
+G2L["5"]["Thickness"] = 2.9;
+G2L["5"]["Color"] = Color3.fromRGB(248, 0, 255);
+
+
+-- StarterGui.ScreenGui.Frame.UIStroke.rainbow
+G2L["6"] = Instance.new("LocalScript", G2L["5"]);
+G2L["6"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.HeaderFrame
+G2L["7"] = Instance.new("Frame", G2L["2"]);
+G2L["7"]["BorderSizePixel"] = 0;
+G2L["7"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["7"]["Size"] = UDim2.new(0, 551, 0, 59);
+G2L["7"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["7"]["Name"] = [[HeaderFrame]];
+
+
+-- StarterGui.ScreenGui.Frame.HeaderFrame.rainbow
+G2L["8"] = Instance.new("LocalScript", G2L["7"]);
+G2L["8"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.HeaderFrame.UIStroke
+G2L["9"] = Instance.new("UIStroke", G2L["7"]);
+G2L["9"]["LineJoinMode"] = Enum.LineJoinMode.Miter;
+G2L["9"]["Thickness"] = 3.3;
+G2L["9"]["Color"] = Color3.fromRGB(255, 255, 255);
+
+
+-- StarterGui.ScreenGui.Frame.HeaderFrame.name
+G2L["a"] = Instance.new("TextLabel", G2L["7"]);
+G2L["a"]["TextWrapped"] = true;
+G2L["a"]["BorderSizePixel"] = 0;
+G2L["a"]["TextSize"] = 14;
+G2L["a"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["a"]["TextScaled"] = true;
+G2L["a"]["BackgroundColor3"] = Color3.fromRGB(141, 0, 255);
+G2L["a"]["FontFace"] = Font.new([[rbxasset://fonts/families/PressStart2P.json]], Enum.FontWeight.Regular, Enum.FontStyle.Italic);
+G2L["a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["a"]["BackgroundTransparency"] = 1;
+G2L["a"]["Size"] = UDim2.new(0, 466, 0, 55);
+G2L["a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["a"]["Text"] = [[ЕПИК ГУИ НА САВАННУ ОТ КРОКИ]];
+G2L["a"]["Name"] = [[name]];
+G2L["a"]["Position"] = UDim2.new(0.01452, 0, 0.02874, 0);
+
+
+-- StarterGui.ScreenGui.Frame.HeaderFrame.name.changecolor
+G2L["b"] = Instance.new("LocalScript", G2L["a"]);
+G2L["b"]["Name"] = [[changecolor]];
+
+
+-- StarterGui.ScreenGui.Frame.eyeslol
+G2L["c"] = Instance.new("ImageLabel", G2L["2"]);
+G2L["c"]["BorderSizePixel"] = 0;
+G2L["c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+-- [ERROR] cannot convert ImageContent, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
+G2L["c"]["Image"] = [[rbxassetid://119720888330437]];
+G2L["c"]["Size"] = UDim2.new(0, 100, 0, 100);
+G2L["c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["c"]["BackgroundTransparency"] = 1;
+G2L["c"]["Name"] = [[eyeslol]];
+G2L["c"]["Position"] = UDim2.new(0.40777, 0, -0.17978, 0);
+
+
+-- StarterGui.ScreenGui.Frame.tonguelol
+G2L["d"] = Instance.new("ImageLabel", G2L["2"]);
+G2L["d"]["BorderSizePixel"] = 0;
+G2L["d"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+-- [ERROR] cannot convert ImageContent, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
+G2L["d"]["Image"] = [[rbxassetid://127626137839739]];
+G2L["d"]["Size"] = UDim2.new(0, 86, 0, 82);
+G2L["d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["d"]["BackgroundTransparency"] = 1;
+G2L["d"]["Name"] = [[tonguelol]];
+G2L["d"]["Position"] = UDim2.new(0.42073, 0, 0.91731, 0);
+
+
+-- StarterGui.ScreenGui.Frame.fly
+G2L["e"] = Instance.new("TextButton", G2L["2"]);
+G2L["e"]["TextWrapped"] = true;
+G2L["e"]["BorderSizePixel"] = 3;
+G2L["e"]["TextSize"] = 14;
+G2L["e"]["TextScaled"] = true;
+G2L["e"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["e"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["e"]["FontFace"] = Font.new([[rbxasset://fonts/families/PressStart2P.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["e"]["Size"] = UDim2.new(0, 151, 0, 38);
+G2L["e"]["BorderColor3"] = Color3.fromRGB(56, 255, 0);
+G2L["e"]["Text"] = [[полет (на B)]];
+G2L["e"]["Name"] = [[fly]];
+G2L["e"]["Position"] = UDim2.new(0.02541, 0, 0.24062, 0);
+
+
+-- StarterGui.ScreenGui.Frame.fly.rainbow
+G2L["f"] = Instance.new("LocalScript", G2L["e"]);
+G2L["f"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.fly.LocalScript
+G2L["10"] = Instance.new("LocalScript", G2L["e"]);
+
+
+
+-- StarterGui.ScreenGui.Frame.ESP
+G2L["11"] = Instance.new("TextButton", G2L["2"]);
+G2L["11"]["TextWrapped"] = true;
+G2L["11"]["BorderSizePixel"] = 3;
+G2L["11"]["TextSize"] = 14;
+G2L["11"]["TextScaled"] = true;
+G2L["11"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["11"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["11"]["FontFace"] = Font.new([[rbxasset://fonts/families/PressStart2P.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["11"]["Size"] = UDim2.new(0, 151, 0, 38);
+G2L["11"]["BorderColor3"] = Color3.fromRGB(56, 255, 0);
+G2L["11"]["Text"] = [[ЕСП (патом добавлю)]];
+G2L["11"]["Name"] = [[ESP]];
+G2L["11"]["Position"] = UDim2.new(0.02541, 0, 0.42083, 0);
+
+
+-- StarterGui.ScreenGui.Frame.ESP.rainbow
+G2L["12"] = Instance.new("LocalScript", G2L["11"]);
+G2L["12"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.teleportmainoas
+G2L["13"] = Instance.new("TextButton", G2L["2"]);
+G2L["13"]["TextWrapped"] = true;
+G2L["13"]["BorderSizePixel"] = 3;
+G2L["13"]["TextSize"] = 14;
+G2L["13"]["TextScaled"] = true;
+G2L["13"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["13"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["13"]["FontFace"] = Font.new([[rbxasset://fonts/families/PressStart2P.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["13"]["Size"] = UDim2.new(0, 151, 0, 38);
+G2L["13"]["BorderColor3"] = Color3.fromRGB(56, 255, 0);
+G2L["13"]["Text"] = [[тп к гл. оазису]];
+G2L["13"]["Name"] = [[teleportmainoas]];
+G2L["13"]["Position"] = UDim2.new(0.02541, 0, 0.59342, 0);
+
+
+-- StarterGui.ScreenGui.Frame.teleportmainoas.rainbow
+G2L["14"] = Instance.new("LocalScript", G2L["13"]);
+G2L["14"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.teleportmainoas.LocalScript
+G2L["15"] = Instance.new("LocalScript", G2L["13"]);
+
+
+
+-- StarterGui.ScreenGui.Frame.teleportoldoas
+G2L["16"] = Instance.new("TextButton", G2L["2"]);
+G2L["16"]["TextWrapped"] = true;
+G2L["16"]["BorderSizePixel"] = 3;
+G2L["16"]["TextSize"] = 14;
+G2L["16"]["TextScaled"] = true;
+G2L["16"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["16"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["16"]["FontFace"] = Font.new([[rbxasset://fonts/families/PressStart2P.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["16"]["Size"] = UDim2.new(0, 151, 0, 38);
+G2L["16"]["BorderColor3"] = Color3.fromRGB(56, 255, 0);
+G2L["16"]["Text"] = [[тп к старому оаз.]];
+G2L["16"]["Name"] = [[teleportoldoas]];
+G2L["16"]["Position"] = UDim2.new(0.02541, 0, 0.77219, 0);
+
+
+-- StarterGui.ScreenGui.Frame.teleportoldoas.rainbow
+G2L["17"] = Instance.new("LocalScript", G2L["16"]);
+G2L["17"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.teleportoldoas.LocalScript
+G2L["18"] = Instance.new("LocalScript", G2L["16"]);
+
+
+
+-- StarterGui.ScreenGui.Frame.teleportsharprock
+G2L["19"] = Instance.new("TextButton", G2L["2"]);
+G2L["19"]["TextWrapped"] = true;
+G2L["19"]["BorderSizePixel"] = 3;
+G2L["19"]["TextSize"] = 14;
+G2L["19"]["TextScaled"] = true;
+G2L["19"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["19"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["19"]["FontFace"] = Font.new([[rbxasset://fonts/families/PressStart2P.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["19"]["Size"] = UDim2.new(0, 151, 0, 38);
+G2L["19"]["BorderColor3"] = Color3.fromRGB(56, 255, 0);
+G2L["19"]["Text"] = [[тп к острой скале]];
+G2L["19"]["Name"] = [[teleportsharprock]];
+G2L["19"]["Position"] = UDim2.new(0.36298, 0, 0.77219, 0);
+
+
+-- StarterGui.ScreenGui.Frame.teleportsharprock.rainbow
+G2L["1a"] = Instance.new("LocalScript", G2L["19"]);
+G2L["1a"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.teleportsharprock.LocalScript
+G2L["1b"] = Instance.new("LocalScript", G2L["19"]);
+
+
+
+-- StarterGui.ScreenGui.Frame.infyield
+G2L["1c"] = Instance.new("TextButton", G2L["2"]);
+G2L["1c"]["TextWrapped"] = true;
+G2L["1c"]["BorderSizePixel"] = 3;
+G2L["1c"]["TextSize"] = 14;
+G2L["1c"]["TextScaled"] = true;
+G2L["1c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["1c"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["1c"]["FontFace"] = Font.new([[rbxasset://fonts/families/PressStart2P.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["1c"]["Size"] = UDim2.new(0, 151, 0, 38);
+G2L["1c"]["BorderColor3"] = Color3.fromRGB(56, 255, 0);
+G2L["1c"]["Text"] = [[инфинити елда]];
+G2L["1c"]["Name"] = [[infyield]];
+G2L["1c"]["Position"] = UDim2.new(0.36298, 0, 0.59342, 0);
+
+
+-- StarterGui.ScreenGui.Frame.infyield.rainbow
+G2L["1d"] = Instance.new("LocalScript", G2L["1c"]);
+G2L["1d"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.infyield.LocalScript
+G2L["1e"] = Instance.new("LocalScript", G2L["1c"]);
+
+
+
+-- StarterGui.ScreenGui.Frame.godhyena
+G2L["1f"] = Instance.new("TextButton", G2L["2"]);
+G2L["1f"]["TextWrapped"] = true;
+G2L["1f"]["BorderSizePixel"] = 3;
+G2L["1f"]["TextSize"] = 14;
+G2L["1f"]["TextScaled"] = true;
+G2L["1f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["1f"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["1f"]["FontFace"] = Font.new([[rbxasset://fonts/families/PressStart2P.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["1f"]["Size"] = UDim2.new(0, 151, 0, 38);
+G2L["1f"]["BorderColor3"] = Color3.fromRGB(56, 255, 0);
+G2L["1f"]["Text"] = [[СТАТЬ БОГОМ (гиена)]];
+G2L["1f"]["Name"] = [[godhyena]];
+G2L["1f"]["Position"] = UDim2.new(0.36298, 0, 0.24062, 0);
+
+
+-- StarterGui.ScreenGui.Frame.godhyena.rainbow
+G2L["20"] = Instance.new("LocalScript", G2L["1f"]);
+G2L["20"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.godlion
+G2L["21"] = Instance.new("TextButton", G2L["2"]);
+G2L["21"]["TextWrapped"] = true;
+G2L["21"]["BorderSizePixel"] = 3;
+G2L["21"]["TextSize"] = 14;
+G2L["21"]["TextScaled"] = true;
+G2L["21"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["21"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["21"]["FontFace"] = Font.new([[rbxasset://fonts/families/PressStart2P.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["21"]["Size"] = UDim2.new(0, 151, 0, 38);
+G2L["21"]["BorderColor3"] = Color3.fromRGB(56, 255, 0);
+G2L["21"]["Text"] = [[СТАТЬ БОГОМ (лев/лео)]];
+G2L["21"]["Name"] = [[godlion]];
+G2L["21"]["Position"] = UDim2.new(0.36298, 0, 0.42083, 0);
+
+
+-- StarterGui.ScreenGui.Frame.godlion.rainbow
+G2L["22"] = Instance.new("LocalScript", G2L["21"]);
+G2L["22"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.RAID
+G2L["23"] = Instance.new("TextButton", G2L["2"]);
+G2L["23"]["TextWrapped"] = true;
+G2L["23"]["BorderSizePixel"] = 0;
+G2L["23"]["TextSize"] = 14;
+G2L["23"]["TextScaled"] = true;
+G2L["23"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["23"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["23"]["FontFace"] = Font.new([[rbxasset://fonts/families/PressStart2P.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["23"]["Size"] = UDim2.new(0, 162, 0, 71);
+G2L["23"]["BorderColor3"] = Color3.fromRGB(56, 255, 0);
+G2L["23"]["Text"] = [[РЕЙД НАХУЙ]];
+G2L["23"]["Name"] = [[RAID]];
+G2L["23"]["Position"] = UDim2.new(0.67151, 0, 0.3875, 0);
+
+
+-- StarterGui.ScreenGui.Frame.RAID.rainbow
+G2L["24"] = Instance.new("LocalScript", G2L["23"]);
+G2L["24"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.RAID.LocalScript
+G2L["25"] = Instance.new("LocalScript", G2L["23"]);
+
+
+
+-- StarterGui.ScreenGui.Frame.paw
+G2L["26"] = Instance.new("ImageLabel", G2L["2"]);
+G2L["26"]["BorderSizePixel"] = 0;
+G2L["26"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+-- [ERROR] cannot convert ImageContent, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
+G2L["26"]["Image"] = [[rbxassetid://103166414051781]];
+G2L["26"]["Size"] = UDim2.new(0, 115, 0, 103);
+G2L["26"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["26"]["BackgroundTransparency"] = 1;
+G2L["26"]["Name"] = [[paw]];
+G2L["26"]["Position"] = UDim2.new(0.71506, 0, 0.66875, 0);
+
+
+-- StarterGui.ScreenGui.Frame.paw.LocalScript
+G2L["27"] = Instance.new("LocalScript", G2L["26"]);
+
+
+
+-- StarterGui.ScreenGui.Frame.cross
+G2L["28"] = Instance.new("ImageButton", G2L["2"]);
+G2L["28"]["BorderSizePixel"] = 0;
+-- [ERROR] cannot convert ImageContent, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
+G2L["28"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["28"]["Image"] = [[rbxassetid://102013896047299]];
+G2L["28"]["Size"] = UDim2.new(0, 51, 0, 44);
+G2L["28"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["28"]["Name"] = [[cross]];
+G2L["28"]["Position"] = UDim2.new(0.89242, 0, 0.021, 0);
+
+
+-- StarterGui.ScreenGui.Frame.anims
+G2L["29"] = Instance.new("TextButton", G2L["2"]);
+G2L["29"]["TextWrapped"] = true;
+G2L["29"]["BorderSizePixel"] = 3;
+G2L["29"]["TextSize"] = 14;
+G2L["29"]["TextScaled"] = true;
+G2L["29"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["29"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["29"]["FontFace"] = Font.new([[rbxasset://fonts/families/PressStart2P.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["29"]["Size"] = UDim2.new(0, 151, 0, 38);
+G2L["29"]["BorderColor3"] = Color3.fromRGB(56, 255, 0);
+G2L["29"]["Text"] = [[анимки сякие]];
+G2L["29"]["Name"] = [[anims]];
+G2L["29"]["Position"] = UDim2.new(0.6824, 0, 0.23958, 0);
+
+
+-- StarterGui.ScreenGui.Frame.anims.rainbow
+G2L["2a"] = Instance.new("LocalScript", G2L["29"]);
+G2L["2a"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.anims.LocalScript
+G2L["2b"] = Instance.new("LocalScript", G2L["29"]);
+
+
+
+-- StarterGui.ScreenGui.Frame.SpeedControllerFrame
+G2L["2c"] = Instance.new("Frame", G2L["2"]);
+G2L["2c"]["Visible"] = false;
+G2L["2c"]["BorderSizePixel"] = 0;
+G2L["2c"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2c"]["Size"] = UDim2.new(0, 200, 0, 50);
+G2L["2c"]["Position"] = UDim2.new(0.31658, 0, 1.11812, 0);
+G2L["2c"]["BorderColor3"] = Color3.fromRGB(235, 0, 255);
+G2L["2c"]["Name"] = [[SpeedControllerFrame]];
+
+
+-- StarterGui.ScreenGui.Frame.SpeedControllerFrame.rainbow
+G2L["2d"] = Instance.new("LocalScript", G2L["2c"]);
+G2L["2d"]["Name"] = [[rainbow]];
+
+
+-- StarterGui.ScreenGui.Frame.SpeedControllerFrame.SliderBar
+G2L["2e"] = Instance.new("Frame", G2L["2c"]);
+G2L["2e"]["BorderSizePixel"] = 0;
+G2L["2e"]["BackgroundColor3"] = Color3.fromRGB(82, 0, 255);
+G2L["2e"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+G2L["2e"]["Size"] = UDim2.new(0.8, 0, 0.15, 0);
+G2L["2e"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
+G2L["2e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2e"]["Name"] = [[SliderBar]];
+
+
+-- StarterGui.ScreenGui.Frame.SpeedControllerFrame.SliderBar.SliderHandle
+G2L["2f"] = Instance.new("TextButton", G2L["2e"]);
+G2L["2f"]["BorderSizePixel"] = 0;
+G2L["2f"]["TextSize"] = 14;
+G2L["2f"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2f"]["BackgroundColor3"] = Color3.fromRGB(116, 255, 0);
+G2L["2f"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["2f"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+G2L["2f"]["Size"] = UDim2.new(0, 20, 0, 20);
+G2L["2f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2f"]["Text"] = [[]];
+G2L["2f"]["Name"] = [[SliderHandle]];
+G2L["2f"]["Position"] = UDim2.new(0, 0, 0.5, 0);
+
+
+-- StarterGui.ScreenGui.Frame.SpeedControllerFrame.SliderBar.SliderHandle.LocalScript
+G2L["30"] = Instance.new("LocalScript", G2L["2f"]);
+
+
+
+-- StarterGui.ScreenGui.Frame.SpeedControllerFrame.UIStroke
+G2L["31"] = Instance.new("UIStroke", G2L["2c"]);
+G2L["31"]["LineJoinMode"] = Enum.LineJoinMode.Miter;
+G2L["31"]["Thickness"] = 3;
+G2L["31"]["Color"] = Color3.fromRGB(192, 0, 255);
+
+
+-- StarterGui.ScreenGui.Frame.CharacterControl
+G2L["32"] = Instance.new("LocalScript", G2L["2"]);
+G2L["32"]["Name"] = [[CharacterControl]];
+
+
+-- StarterGui.ScreenGui.HintLabel
+G2L["33"] = Instance.new("TextLabel", G2L["1"]);
+G2L["33"]["TextWrapped"] = true;
+G2L["33"]["BorderSizePixel"] = 0;
+G2L["33"]["TextSize"] = 14;
+G2L["33"]["TextScaled"] = true;
+G2L["33"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["33"]["FontFace"] = Font.new([[rbxasset://fonts/families/PressStart2P.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["33"]["TextColor3"] = Color3.fromRGB(61, 255, 0);
+G2L["33"]["BackgroundTransparency"] = 1;
+G2L["33"]["Size"] = UDim2.new(0, 200, 0, 50);
+G2L["33"]["Visible"] = false;
+G2L["33"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["33"]["Text"] = [[открывать на U]];
+G2L["33"]["Name"] = [[HintLabel]];
+G2L["33"]["Position"] = UDim2.new(0.83956, 0, 0.01565, 0);
+
+
+-- StarterGui.ScreenGui.Frame.drag
+local function C_3()
+local script = G2L["3"];
+	local frame = script.Parent
+	local userInputService = game:GetService("UserInputService")
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+	
+	frame.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = frame.Position
+	
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	frame.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	userInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end;
+task.spawn(C_3);
+-- StarterGui.ScreenGui.Frame.ToggleScript
+local function C_4()
+local script = G2L["4"];
+	local UserInputService = game:GetService("UserInputService")
+	
+	local mainFrame = script.Parent
+	local crossButton = mainFrame:WaitForChild("cross")
+	local speedController = mainFrame:WaitForChild("SpeedControllerFrame")
+	local hintLabel = mainFrame.Parent:WaitForChild("HintLabel")
+	
+	local hintHasBeenShown = false
+	
+	local function setGuiVisible(visible)
+		mainFrame.Visible = visible
+		UserInputService.MouseIconEnabled = visible
+	
+		if visible then
+			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+			hintLabel.Visible = false
+		else
+			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+			speedController.Visible = false
+			if not hintHasBeenShown then
+				hintLabel.Visible = true
+				hintHasBeenShown = true
+			end
+		end
+	end
+	
+	crossButton.MouseButton1Click:Connect(function()
+		setGuiVisible(false)
+	end)
+	
+	UserInputService.InputBegan:Connect(function(input, gameProcessed)
+		if gameProcessed then return end
+	
+		if input.KeyCode == Enum.KeyCode.U then
+			setGuiVisible(not mainFrame.Visible)
+		end
+	end)
+	
+	setGuiVisible(false)
+end;
+task.spawn(C_4);
+-- StarterGui.ScreenGui.Frame.UIStroke.rainbow
+local function C_6()
+local script = G2L["6"];
+	local stroke = script.Parent
+	local hue = 0
+	
+	while true do
+		hue = (hue + 0.02) % 1
+		local color = Color3.fromHSV(hue, 1, 1)
+		stroke.Color = color
+		task.wait()
+	end
+	
+end;
+task.spawn(C_6);
+-- StarterGui.ScreenGui.Frame.HeaderFrame.rainbow
+local function C_8()
+local script = G2L["8"];
+	local stroke = script.Parent:WaitForChild("UIStroke")
+	local hue = 0
+	
+	while true do
+		hue = (hue + 0.02) % 1
+		local color = Color3.fromHSV(hue, 1, 1)
+		stroke.Color = color
+		task.wait()
+	end
+	
+end;
+task.spawn(C_8);
+-- StarterGui.ScreenGui.Frame.HeaderFrame.name.changecolor
+local function C_b()
+local script = G2L["b"];
+	local textLabel = script.Parent
+	
+	local colorA = Color3.fromRGB(55, 255, 0)
+	local colorB = Color3.fromRGB(140, 0, 255)
+	local colorC = Color3.fromRGB(21, 0, 255)
+	
+	local speed = 5
+	local counter = 0
+	
+	while true do
+		counter = counter + speed * task.wait()
+	
+		local totalAlpha = (math.sin(counter) + 1) / 2
+		local newColor
+	
+		if totalAlpha < 0.5 then
+			local segmentAlpha = totalAlpha * 2
+			newColor = colorA:Lerp(colorC, segmentAlpha)
+		else
+			local segmentAlpha = (totalAlpha - 0.5) * 2
+			newColor = colorC:Lerp(colorB, segmentAlpha)
+		end
+	
+		textLabel.TextColor3 = newColor
+	end
+end;
+task.spawn(C_b);
+-- StarterGui.ScreenGui.Frame.fly.rainbow
+local function C_f()
+local script = G2L["f"];
+	local button = script.Parent
+	local RunService = game:GetService("RunService")
+	
+	local hue = 0
+	
+	RunService.RenderStepped:Connect(function()
+	    hue = (hue + 0.02) % 1
+	    local color = Color3.fromHSV(hue, 1, 1)
+	    button.BorderColor3 = color
+	    button.TextColor3 = color
+	end)
+	
+	
+end;
+task.spawn(C_f);
+-- StarterGui.ScreenGui.Frame.fly.LocalScript
+local function C_10()
+local script = G2L["10"];
+	local Players = game:GetService("Players")
+	local UserInputService = game:GetService("UserInputService")
+	local RunService = game:GetService("RunService")
+	
+	local plr = Players.LocalPlayer
+	local flyButton = script.Parent
+	local speedControllerFrame = script.Parent.Parent:WaitForChild("SpeedControllerFrame")
+	
+	local flyEnabled = false
+	local flying = false
+	local speed = 0
+	local ctrl = {f = 0, b = 0, l = 0, r = 0}
+	
+	local bg = nil
+	local bv = nil
+	
+	_G.FlySpeed = 50
+	
+	local function stopFlight()
+		if not flying then return end
+		flying = false
+		if bg then bg:Destroy() bg = nil end
+		if bv then bv:Destroy() bv = nil end
+		if plr.Character and plr.Character:FindFirstChild("Humanoid2") then
+			plr.Character.Humanoid2.PlatformStand = false
+		end
+		speed = 0
+	end
+	
+	local function startFlight()
+		if flying then return end
+		local char = plr.Character
+		if not char then return end
+		local torso = char:FindFirstChild("Torso")
+		local humanoid = char:FindFirstChild("Humanoid2")
+		if not torso or not humanoid then return end
+	
+		flying = true
+		humanoid.PlatformStand = true
+	
+		bg = Instance.new("BodyGyro", torso)
+		bg.P = 9e4
+		bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+		bg.cframe = torso.CFrame
+	
+		bv = Instance.new("BodyVelocity", torso)
+		bv.velocity = Vector3.new(0, 0.1, 0)
+		bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+	end
+	
+	flyButton.MouseButton1Click:Connect(function()
+		flyEnabled = not flyEnabled
+		speedControllerFrame.Visible = flyEnabled
+		if not flyEnabled then
+			stopFlight()
+		end
+	end)
+	
+	RunService.Heartbeat:Connect(function()
+		if not flyEnabled or not flying then
+			return
+		end
+		if not bv or not bg or not bv.Parent or not bg.Parent then
+			return
+		end
+	
+		local maxspeed = _G.FlySpeed
+	
+		local humanoid = plr.Character and plr.Character:FindFirstChild("Humanoid2")
+		if not humanoid then
+			stopFlight()
+			return
+		end
+	
+		humanoid.PlatformStand = true
+		local camera = workspace.CurrentCamera
+	
+		if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+			speed = math.min(maxspeed, speed + 0.5 + (speed / maxspeed))
+		else
+			speed = math.max(0, speed - 1)
+		end
+	
+		local moveDir = (camera.CFrame.lookVector * (ctrl.f + ctrl.b)) + ((camera.CFrame * CFrame.new(ctrl.l + ctrl.r, (ctrl.f + ctrl.b) * 0.2, 0)).p - camera.CFrame.p)
+	
+		if moveDir.Magnitude > 0 then
+			bv.velocity = moveDir.Unit * speed
+		elseif speed > 0 and moveDir.Magnitude == 0 then
+			bv.velocity = bv.velocity.Unit * speed
+		else
+			bv.velocity = Vector3.new(0, 0.1, 0)
+		end
+	
+		bg.cframe = camera.CFrame * CFrame.Angles(-math.rad((ctrl.f + ctrl.b) * 50 * speed / maxspeed), 0, 0)
+	end)
+	
+	UserInputService.InputBegan:Connect(function(input, gameProcessed)
+		if gameProcessed then return end
+		local key = input.KeyCode
+		if key == Enum.KeyCode.B then
+			if flyEnabled then
+				if flying then
+					stopFlight()
+				else
+					startFlight()
+				end
+			end
+		elseif key == Enum.KeyCode.W then ctrl.f = 1
+		elseif key == Enum.KeyCode.S then ctrl.b = -1
+		elseif key == Enum.KeyCode.A then ctrl.l = -1
+		elseif key == Enum.KeyCode.D then ctrl.r = 1
+		end
+	end)
+	
+	UserInputService.InputEnded:Connect(function(input)
+		local key = input.KeyCode
+		if key == Enum.KeyCode.W then ctrl.f = 0
+		elseif key == Enum.KeyCode.S then ctrl.b = 0
+		elseif key == Enum.KeyCode.A then ctrl.l = 0
+		elseif key == Enum.KeyCode.D then ctrl.r = 0
+		end
+	end)
+	
+	plr.CharacterAdded:Connect(function()
+		stopFlight()
+		flyEnabled = false
+		speedControllerFrame.Visible = false
+	end)
+end;
+task.spawn(C_10);
+-- StarterGui.ScreenGui.Frame.ESP.rainbow
+local function C_12()
+local script = G2L["12"];
+	local button = script.Parent
+	local RunService = game:GetService("RunService")
+	
+	local hue = 0
+	
+	RunService.RenderStepped:Connect(function()
+	    hue = (hue + 0.02) % 1
+	    local color = Color3.fromHSV(hue, 1, 1)
+	    button.BorderColor3 = color
+	    button.TextColor3 = color
+	end)
+	
+	
+end;
+task.spawn(C_12);
+-- StarterGui.ScreenGui.Frame.teleportmainoas.rainbow
+local function C_14()
+local script = G2L["14"];
+	local button = script.Parent
+	local RunService = game:GetService("RunService")
+	
+	local hue = 0
+	
+	RunService.RenderStepped:Connect(function()
+	    hue = (hue + 0.02) % 1
+	    local color = Color3.fromHSV(hue, 1, 1)
+	    button.BorderColor3 = color
+	    button.TextColor3 = color
+	end)
+	
+	
+end;
+task.spawn(C_14);
+-- StarterGui.ScreenGui.Frame.teleportmainoas.LocalScript
+local function C_15()
+local script = G2L["15"];
+	local button = script.Parent
+	button.MouseButton1Click:Connect(function()
+		local player = game:GetService("Players").LocalPlayer
+		local character = player.Character or player.CharacterAdded:Wait()
+		local rootPart = character and character:FindFirstChild("HumanoidRootPart")
+		if not rootPart then
+			return
+		end
+		local targetPosition = Vector3.new(-2538, -34, 3485)
+		local bodyMover = Instance.new("BodyPosition")
+		bodyMover.Name = "TempTeleportForce"
+		bodyMover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+		bodyMover.D = 500
+		bodyMover.P = 50000
+		bodyMover.Position = targetPosition
+		bodyMover.Parent = rootPart
+		task.wait(0.5)
+		bodyMover:Destroy()
+	end)
+end;
+task.spawn(C_15);
+-- StarterGui.ScreenGui.Frame.teleportoldoas.rainbow
+local function C_17()
+local script = G2L["17"];
+	local button = script.Parent
+	local RunService = game:GetService("RunService")
+	
+	local hue = 0
+	
+	RunService.RenderStepped:Connect(function()
+	    hue = (hue + 0.02) % 1
+	    local color = Color3.fromHSV(hue, 1, 1)
+	    button.BorderColor3 = color
+	    button.TextColor3 = color
+	end)
+	
+	
+end;
+task.spawn(C_17);
+-- StarterGui.ScreenGui.Frame.teleportoldoas.LocalScript
+local function C_18()
+local script = G2L["18"];
+	local button = script.Parent
+	button.MouseButton1Click:Connect(function()
+		local player = game:GetService("Players").LocalPlayer
+		local character = player.Character or player.CharacterAdded:Wait()
+		local rootPart = character and character:FindFirstChild("HumanoidRootPart")
+		if not rootPart then
+			return
+		end
+		local targetPosition = Vector3.new(-2530, -52, -1303)
+		local bodyMover = Instance.new("BodyPosition")
+		bodyMover.Name = "TempTeleportForce"
+		bodyMover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+		bodyMover.D = 500
+		bodyMover.P = 50000
+		bodyMover.Position = targetPosition
+		bodyMover.Parent = rootPart
+		task.wait(0.5)
+		bodyMover:Destroy()
+	end)
+	
+end;
+task.spawn(C_18);
+-- StarterGui.ScreenGui.Frame.teleportsharprock.rainbow
+local function C_1a()
+local script = G2L["1a"];
+	local button = script.Parent
+	local RunService = game:GetService("RunService")
+	
+	local hue = 0
+	
+	RunService.RenderStepped:Connect(function()
+	    hue = (hue + 0.02) % 1
+	    local color = Color3.fromHSV(hue, 1, 1)
+	    button.BorderColor3 = color
+	    button.TextColor3 = color
+	end)
+	
+	
+end;
+task.spawn(C_1a);
+-- StarterGui.ScreenGui.Frame.teleportsharprock.LocalScript
+local function C_1b()
+local script = G2L["1b"];
+	local button = script.Parent
+	button.MouseButton1Click:Connect(function()
+		local player = game:GetService("Players").LocalPlayer
+		local character = player.Character or player.CharacterAdded:Wait()
+		local rootPart = character and character:FindFirstChild("HumanoidRootPart")
+		if not rootPart then
+			return
+		end
+		local targetPosition = Vector3.new(2759, 3, -2263)
+		local bodyMover = Instance.new("BodyPosition")
+		bodyMover.Name = "TempTeleportForce"
+		bodyMover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+		bodyMover.D = 500
+		bodyMover.P = 50000
+		bodyMover.Position = targetPosition
+		bodyMover.Parent = rootPart
+		task.wait(0.5)
+		bodyMover:Destroy()
+	end)
+	
+	
+end;
+task.spawn(C_1b);
+-- StarterGui.ScreenGui.Frame.infyield.rainbow
+local function C_1d()
+local script = G2L["1d"];
+	local button = script.Parent
+	local RunService = game:GetService("RunService")
+	
+	local hue = 0
+	
+	RunService.RenderStepped:Connect(function()
+	    hue = (hue + 0.02) % 1
+	    local color = Color3.fromHSV(hue, 1, 1)
+	    button.BorderColor3 = color
+	    button.TextColor3 = color
+	end)
+	
+	
+end;
+task.spawn(C_1d);
+-- StarterGui.ScreenGui.Frame.infyield.LocalScript
+local function C_1e()
+local script = G2L["1e"];
+	local button = script.Parent
+	local activated = false
+	
+	button.MouseButton1Click:Connect(function()
+		if activated then return end
+		activated = true
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+	end)
+	
+end;
+task.spawn(C_1e);
+-- StarterGui.ScreenGui.Frame.godhyena.rainbow
+local function C_20()
+local script = G2L["20"];
+	local button = script.Parent
+	local RunService = game:GetService("RunService")
+	
+	local hue = 0
+	
+	RunService.RenderStepped:Connect(function()
+	    hue = (hue + 0.02) % 1
+	    local color = Color3.fromHSV(hue, 1, 1)
+	    button.BorderColor3 = color
+	    button.TextColor3 = color
+	end)
+	
+	
+end;
+task.spawn(C_20);
+-- StarterGui.ScreenGui.Frame.godlion.rainbow
+local function C_22()
+local script = G2L["22"];
+	local button = script.Parent
+	local RunService = game:GetService("RunService")
+	
+	local hue = 0
+	
+	RunService.RenderStepped:Connect(function()
+	    hue = (hue + 0.02) % 1
+	    local color = Color3.fromHSV(hue, 1, 1)
+	    button.BorderColor3 = color
+	    button.TextColor3 = color
+	end)
+	
+	
+end;
+task.spawn(C_22);
+-- StarterGui.ScreenGui.Frame.RAID.rainbow
+local function C_24()
+local script = G2L["24"];
+	local button = script.Parent
+	local RunService = game:GetService("RunService")
+	local hue = 0
+	RunService.RenderStepped:Connect(function()
+	    hue = (hue + 0.15) % 1
+	    button.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
+	end)
+end;
+task.spawn(C_24);
+-- StarterGui.ScreenGui.Frame.RAID.LocalScript
+local function C_25()
+local script = G2L["25"];
+	local button = script.Parent
+	local activated = false
+	
+	button.MouseButton1Click:Connect(function()
+		if activated then return end
+		activated = true
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/D34TH3R3CT10N/wild-savannah/refs/heads/main/aura'))()
+	end)
+	
+	
+end;
+task.spawn(C_25);
+-- StarterGui.ScreenGui.Frame.paw.LocalScript
+local function C_27()
+local script = G2L["27"];
+	local imageLabel = script.Parent
+	
+	local originalPosition = imageLabel.Position
+	local originalRotation = imageLabel.Rotation
+	
+	local rotationStrength = 10 
+	local bounceHeight = 15 
+	local speed = 4
+	
+	local time = 0
+	
+	while true do
+		time = time + task.wait() * speed
+	
+		local rotation = math.sin(time) * rotationStrength
+		local bounce = math.abs(math.cos(time)) * bounceHeight
+	
+		imageLabel.Rotation = originalRotation + rotation
+		imageLabel.Position = UDim2.new(originalPosition.X.Scale, originalPosition.X.Offset, originalPosition.Y.Scale, originalPosition.Y.Offset - bounce)
+	end
+end;
+task.spawn(C_27);
+-- StarterGui.ScreenGui.Frame.anims.rainbow
+local function C_2a()
+local script = G2L["2a"];
+	local button = script.Parent
+	local RunService = game:GetService("RunService")
+	
+	local hue = 0
+	
+	RunService.RenderStepped:Connect(function()
+	    hue = (hue + 0.02) % 1
+	    local color = Color3.fromHSV(hue, 1, 1)
+	    button.BorderColor3 = color
+	    button.TextColor3 = color
+	end)
+	
+	
+end;
+task.spawn(C_2a);
+-- StarterGui.ScreenGui.Frame.anims.LocalScript
+local function C_2b()
+local script = G2L["2b"];
+	local button = script.Parent
+	local activated = false
+	
+	button.MouseButton1Click:Connect(function()
+		if activated then return end
+		activated = true
+		loadstring(game:HttpGet('https://pastebin.com/raw/T0aPkUnk', true))()
+	end)
+	
+end;
+task.spawn(C_2b);
+-- StarterGui.ScreenGui.Frame.SpeedControllerFrame.rainbow
+local function C_2d()
+local script = G2L["2d"];
+	local stroke = script.Parent:WaitForChild("UIStroke")
+	local hue = 0
+	
+	while true do
+		hue = (hue + 0.02) % 1
+		local color = Color3.fromHSV(hue, 1, 1)
+		stroke.Color = color
+		task.wait()
+	end
+	
+end;
+task.spawn(C_2d);
+-- StarterGui.ScreenGui.Frame.SpeedControllerFrame.SliderBar.SliderHandle.LocalScript
+local function C_30()
+local script = G2L["30"];
+	local userInputService = game:GetService("UserInputService")
+	
+	local handle = script.Parent
+	local bar = handle.Parent
+	local controllerFrame = bar.Parent
+	
+	local minSpeed = 10
+	local maxSpeed = 500
+	
+	local dragging = false
+	
+	handle.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+		end
+	end)
+	
+	userInputService.InputEnded:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = false
+		end
+	end)
+	
+	userInputService.InputChanged:Connect(function(input)
+		if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+			local mouseLocation = userInputService:GetMouseLocation()
+			local relativeX = mouseLocation.X - bar.AbsolutePosition.X
+			local barWidth = bar.AbsoluteSize.X
+	
+			local alpha = math.clamp(relativeX / barWidth, 0, 1)
+	
+			handle.Position = UDim2.fromScale(alpha, 0.5)
+	
+			local newSpeed = minSpeed + (maxSpeed - minSpeed) * alpha
+			_G.FlySpeed = newSpeed
+		end
+	end)
+	
+end;
+task.spawn(C_30);
+-- StarterGui.ScreenGui.Frame.CharacterControl
+local function C_32()
+local script = G2L["32"];
+	local Players = game:GetService("Players")
+	local RunService = game:GetService("RunService")
+	local player = Players.LocalPlayer
+	
+	local mainFrame = script.Parent
+	local godlionButton = mainFrame:WaitForChild("godlion")
+	local godhyenaButton = mainFrame:WaitForChild("godhyena")
+	
+	local activeMod = nil
+	local activeModCoroutine = nil
+	
+	local lionScriptSource = game:HttpGet("https://raw.githubusercontent.com/D34TH3R3CT10N/wild-savannah/refs/heads/main/ultralion", true)
+	local hyenaScriptSource = game:HttpGet("https://raw.githubusercontent.com/D34TH3R3CT10N/wild-savannah/refs/heads/main/ultrahyena", true)
+	
+	local function cleanup()
+		if activeModCoroutine then
+			coroutine.close(activeModCoroutine)
+			activeModCoroutine = nil
+		end
+	
+		if player.Character and player.Character:FindFirstChild("Humanoid2") then
+			local controlScript = player.PlayerScripts:FindFirstChild("ControlScript")
+			if controlScript then
+				controlScript.Disabled = false
+			end
+		end
+	end
+	
+	local function applyMod(character)
+		cleanup()
+	
+		local humanoid2 = character:WaitForChild("Humanoid2")
+		if not humanoid2 then return end
+	
+		local scriptSource
+		if activeMod == "lion" then
+			scriptSource = lionScriptSource
+		elseif activeMod == "hyena" then
+			scriptSource = hyenaScriptSource
+		end
+	
+		if not scriptSource then return end
+	
+		local modFunc, err = loadstring(scriptSource)
+		if not modFunc then return end
+	
+		activeModCoroutine = coroutine.create(modFunc)
+	
+		local success, errorMsg = coroutine.resume(activeModCoroutine)
+	end
+	
+	godlionButton.MouseButton1Click:Connect(function()
+		if activeMod == "lion" then
+			activeMod = nil
+			cleanup()
+		else
+			activeMod = "lion"
+			if player.Character then
+				applyMod(player.Character)
+			end
+		end
+	end)
+	
+	godhyenaButton.MouseButton1Click:Connect(function()
+		if activeMod == "hyena" then
+			activeMod = nil
+			cleanup()
+		else
+			activeMod = "hyena"
+			if player.Character then
+				applyMod(player.Character)
+			end
+		end
+	end)
+	
+	player.CharacterAdded:Connect(function(character)
+		if activeMod then
+			applyMod(character)
+		end
+	end)
+end;
+task.spawn(C_32);
+
+return G2L["1"], require;
