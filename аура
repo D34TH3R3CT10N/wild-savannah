@@ -1,0 +1,159 @@
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local localPlayer = Players.LocalPlayer
+local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid2")
+local rootPart = character:WaitForChild("HumanoidRootPart")
+
+local AuraEnabled = false
+local initialPosition = nil
+local currentTarget = nil
+local ignoredPlayers = {}
+local isAttacking = false
+
+local bodyMover = nil
+
+local PrimaryAttackAnim = character:WaitForChild("Humanoid2"):WaitForChild("Animations"):WaitForChild("Attacks"):WaitForChild("Primary")
+local PrimaryAttackTrack = humanoid:LoadAnimation(PrimaryAttackAnim)
+
+local screenGui = Instance.new("ScreenGui", localPlayer.PlayerGui)
+screenGui.ResetOnSpawn = true
+local statusLabel = Instance.new("TextLabel", screenGui)
+statusLabel.Size = UDim2.new(0, 300, 0, 60)
+statusLabel.Position = UDim2.new(0.5, -150, 0, 10)
+statusLabel.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+statusLabel.BackgroundTransparency = 0.4
+statusLabel.TextColor3 = Color3.fromRGB(255, 80, 80)
+statusLabel.Font = Enum.Font.SourceSansBold
+statusLabel.TextSize = 18
+statusLabel.Text = "пр нажми J для пиздеца, P чтобы пропустить жертву"
+statusLabel.Visible = true
+
+local function simpleTeleport(targetPosition)
+    local tempMover = Instance.new("BodyPosition")
+    tempMover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+    tempMover.P = 50000
+    tempMover.Position = targetPosition
+    tempMover.Parent = rootPart
+    game:GetService("Debris"):AddItem(tempMover, 0.5)
+end
+
+local function findNextTarget()
+    local allPlayers = Players:GetPlayers()
+    for i = 1, #allPlayers do
+        local player = allPlayers[i]
+        if player ~= localPlayer and not ignoredPlayers[player] and player.Character and player.Character:FindFirstChild("Humanoid2") and player.Character.Humanoid2.Health > 0 then
+            return player
+        end
+    end
+    return nil
+end
+
+local function getBestTargetPart(targetCharacter)
+    if not targetCharacter then return nil end
+    return targetCharacter:FindFirstChild("Face") 
+        or targetCharacter:FindFirstChild("Belly1") 
+        or targetCharacter:FindFirstChild("Torso") 
+        or targetCharacter:FindFirstChild("HumanoidRootPart")
+end
+
+local function instaKill(target)
+    if not target or not target.Character or isAttacking then return end
+    
+    local targetPart = getBestTargetPart(target.Character)
+    if not targetPart then return end
+
+    isAttacking = true
+    
+    local attackRemote = ReplicatedStorage:FindFirstChild("RemoteEvent8")
+    if not attackRemote then isAttacking = false; return end
+    
+    PrimaryAttackTrack:Play(0.1, 1, 1.5)
+    
+    for i = 1, 150 do
+        if not target.Parent or not target.Character or target.Character.Humanoid2.Health <= 0 then break end
+        local attackType = (i % 2 == 0) and "Left Paw Hit" or "Right Paw Hit"
+        attackRemote:FireServer(attackType, targetPart)
+    end
+    
+    PrimaryAttackTrack:Stop(0.1)
+    task.wait(0.5)
+    isAttacking = false
+end
+
+RunService.Heartbeat:Connect(function()
+    if not AuraEnabled then return end
+
+    if not currentTarget or not currentTarget.Parent or not currentTarget.Character or not currentTarget.Character:FindFirstChild("Humanoid2") or currentTarget.Character.Humanoid2.Health <= 0 then
+        currentTarget = findNextTarget()
+        if not currentTarget then
+            statusLabel.Text = "включено ждем..."
+            if bodyMover then bodyMover.MaxForce = Vector3.new(0,0,0) end
+            return
+        end
+    end
+
+    statusLabel.Text = "включено таргетим " .. currentTarget.Name
+    
+    local bestPart = getBestTargetPart(currentTarget.Character)
+    
+    if bodyMover and bestPart then
+        bodyMover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+        local leashPosition = bestPart.Position + (bestPart.CFrame.LookVector * 4)
+        bodyMover.Position = leashPosition
+    end
+    
+    if not isAttacking then
+        local distance = (rootPart.Position - bestPart.Position).Magnitude
+        if distance < 15 then
+            instaKill(currentTarget)
+        end
+    end
+end)
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+
+    if input.KeyCode == Enum.KeyCode.J then
+        AuraEnabled = not AuraEnabled
+        
+        if AuraEnabled then
+            initialPosition = rootPart.Position
+            ignoredPlayers = {}
+            currentTarget = nil
+            
+            bodyMover = Instance.new("BodyPosition", rootPart)
+            bodyMover.Name = "AuraTeleportForce"
+            bodyMover.MaxForce = Vector3.new(0,0,0)
+            bodyMover.D = 50
+            bodyMover.P = 1000000
+            
+            statusLabel.TextColor3 = Color3.fromRGB(80, 255, 80)
+            statusLabel.Text = "включено"
+        else
+            if bodyMover then bodyMover:Destroy(); bodyMover = nil end
+            if initialPosition then simpleTeleport(initialPosition) end
+            
+            isAttacking = false
+            PrimaryAttackTrack:Stop()
+            statusLabel.TextColor3 = Color3.fromRGB(255, 80, 80)
+            statusLabel.Text = "выключено"
+        end
+    end
+    
+    if input.KeyCode == Enum.KeyCode.P then
+        if AuraEnabled and currentTarget then
+            ignoredPlayers[currentTarget] = true
+            currentTarget = nil
+            statusLabel.Text = "скипаем"
+        end
+    end
+end)
+
+Players.PlayerRemoving:Connect(function(player)
+    if ignoredPlayers[player] then ignoredPlayers[player] = nil end
+    if currentTarget == player then currentTarget = nil end
+end)
