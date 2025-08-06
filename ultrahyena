@@ -1,6 +1,5 @@
-return function(char, connections)
 local u1 = game.Players.LocalPlayer
-local u2 = char
+local u2 = u1.Character
 local u3 = u2:WaitForChild("Humanoid2")
 local u4 = game.Players.LocalPlayer:GetMouse()
 workspace:WaitForChild("Terrain")
@@ -3911,4 +3910,3 @@ table.insert(connections, v6.Heartbeat:connect(function() --[[Anonymous function
 		HyenaMaul:Stop()
 	end
 end))
-end
