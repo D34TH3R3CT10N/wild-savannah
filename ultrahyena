@@ -2507,16 +2507,16 @@ u2.Jaw.Touched:connect(function(p182) --[[Anonymous function at line 2664]]
             if Bite.IsPlaying == true or Defend.IsPlaying == true then
                 u11 = false
                 if u147 == true then
-                    -- [MOD] One-Hit Kill: Fire the damage event many times
-                    for i = 1, 50 do
+                    -- One-Hit Kill: Fire the damage event many times
+                    for i = 1, 300 do
                         game.ReplicatedStorage.RemoteEvent8:FireServer("NipPrey", p182)
                     end
                 end
             end
             if QuickTurnLeft.IsPlaying == true or QuickTurnRight.IsPlaying == true then
                 u11 = false
-                 -- [MOD] One-Hit Kill: Fire the damage event many times
-                for i = 1, 50 do
+                 -- One-Hit Kill: Fire the damage event many times
+                for i = 1, 300 do
                     game.ReplicatedStorage.RemoteEvent8:FireServer("NipPrey", p182)
                 end
             end
@@ -2524,15 +2524,15 @@ u2.Jaw.Touched:connect(function(p182) --[[Anonymous function at line 2664]]
         if table.find(u145, v183:GetAttribute("Species")) and (v183:GetAttribute("IsBeingPounced") == false and (u11 == true and (Bite.IsPlaying == true or (QuickTurnLeft.IsPlaying == true or QuickTurnRight.IsPlaying == true)))) then
             u11 = false
             if u147 == false then
-                 -- [MOD] One-Hit Kill: Fire the damage event many times
-                for i = 1, 50 do
+                 -- One-Hit Kill: Fire the damage event many times
+                for i = 1, 300 do
                     game.ReplicatedStorage.RemoteEvent8:FireServer("Bite", p182)
                 end
                 return
             end
             if u147 == true then
-                 -- [MOD] One-Hit Kill: Fire the damage event many times
-                for i = 1, 50 do
+                 -- One-Hit Kill: Fire the damage event many times
+                for i = 1, 300 do
                     game.ReplicatedStorage.RemoteEvent8:FireServer("NipPrey", p182)
                 end
             end
@@ -3925,3 +3925,4 @@ v6.Heartbeat:connect(function() --[[Anonymous function at line 3595]]
         HyenaMaul:Stop()
     end
 end)
+
