@@ -6,7 +6,7 @@
 88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
-
+local modTable = {60045339, 420264542} local function modChecker() for i,plr in pairs(game.Players:GetPlayers()) do pcall(function() for _,v in modTable do if plr.UserId == v then game.Players.LocalPlayer:Kick('АА МОДЕР '..plr.UserId) end end end) end end modChecker() game.Players.PlayerAdded:Connect(function(player) for _,v in modTable do if player.UserId == v then game.Players.LocalPlayer:Kick('АА МОДЕР '..player.UserId)  end end player.AncestryChanged:Connect(function(_, parent) if parent ~= nil then return end end) end)
 -- Instances: 51 | Scripts: 26 | Modules: 0 | Tags: 0
 local G2L = {};
 
